@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [visibleSections, setVisibleSections] = useState(new Set());
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +45,10 @@ export default function Home() {
     }`;
   };
 
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-950 dark:to-slate-800">
       {/* Navigation */}
@@ -59,7 +64,9 @@ export default function Home() {
                 <div className="text-xs text-slate-500 dark:text-slate-400 transition-colors">Web Developer</div>
               </div>
             </a>
-            <div className="flex gap-8 items-center">
+            
+            {/* Desktop Menu */}
+            <div className="hidden md:flex gap-8 items-center">
               <a href="#about" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
                 <span>About</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
@@ -80,7 +87,65 @@ export default function Home() {
                 Contact
               </a>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+              )}
+            </button>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 space-y-3 animate-slideDown">
+              <a 
+                href="#about" 
+                onClick={handleNavClick}
+                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                About
+              </a>
+              <a 
+                href="#education" 
+                onClick={handleNavClick}
+                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                Education
+              </a>
+              <a 
+                href="#projects" 
+                onClick={handleNavClick}
+                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                Projects
+              </a>
+              <a 
+                href="#skills" 
+                onClick={handleNavClick}
+                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+              >
+                Skills
+              </a>
+              <a 
+                href="#contact" 
+                onClick={handleNavClick}
+                className="block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md text-center"
+              >
+                Contact
+              </a>
+            </div>
+          )}
         </div>
       </nav>
 
