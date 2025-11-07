@@ -1,0 +1,23 @@
+            {/* Backend & Tools */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <span className="text-3xl">⚙️</span> Backend & Tools
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  { name: 'Node.js', icon: '🟢', color: 'green' },
+                  { name: 'Git', icon: '📦', color: 'red' },
+                  { name: 'GitHub', icon: '🐙', color: 'slate' },
+                ].map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                  >
+                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">{skill.icon}</div>
+                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>

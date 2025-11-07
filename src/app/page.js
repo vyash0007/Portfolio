@@ -1,0 +1,851 @@
+'use client';
+import { useState, useEffect, useRef } from 'react';
+
+export default function Home() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [visibleSections, setVisibleSections] = useState(new Set());
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set([...prev, entry.target.id]));
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+    );
+
+    const sections = document.querySelectorAll('[data-animate]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const getAnimationClass = (sectionId, delay = 0) => {
+    const isVisible = visibleSections.has(sectionId);
+    return `transition-all duration-1000 ease-out ${delay > 0 ? `delay-${delay}` : ''} ${
+      isVisible 
+        ? 'opacity-100 translate-y-0 scale-100' 
+        : 'opacity-0 translate-y-10 scale-95'
+    }`;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-950 dark:to-slate-800">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg z-50 border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300 animate-slideDown">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <a href="#" className="group flex items-center gap-3">
+              <div className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-3">
+                YV
+              </div>
+              <div className="hidden md:block">
+                <div className="text-lg font-bold text-slate-900 dark:text-white transition-colors">Yash Verma</div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 transition-colors">Web Developer</div>
+              </div>
+            </a>
+            <div className="flex gap-8 items-center">
+              <a href="#about" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
+                <span>About</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#education" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
+                <span>Education</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#projects" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
+                <span>Projects</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#skills" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
+                <span>Skills</span>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md">
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="hero" data-animate className="container mx-auto px-6 py-32 md:py-40 mt-16">
+        <div className={`max-w-4xl mx-auto ${getAnimationClass('hero')}`}>
+          <div className="text-center space-y-8 animate-fade-in">
+            <div className="inline-block">
+              <div className="relative">
+                <div className="absolute inset-0 bg-blue-600 blur-3xl opacity-20 animate-pulse"></div>
+                <h1 className="relative text-5xl md:text-7xl font-bold text-slate-900 dark:text-white">
+                  Hi, I'm <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 text-transparent bg-clip-text">Yash Verma</span>
+                </h1>
+              </div>
+            </div>
+            <p className="text-2xl md:text-3xl text-slate-600 dark:text-slate-300 font-medium flex items-center justify-center gap-2">
+              <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              Web Developer
+            </p>
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+              Passionate about creating beautiful and functional web experiences. 
+              Currently pursuing Bachelor's in Technology in Computer Science Engineering.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center pt-4">
+              <a
+                href="#projects"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                View Projects
+              </a>
+              <a
+                href="#contact"
+                className="bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg"
+              >
+                Contact Me
+              </a>
+              <a
+                href="https://www.linkedin.com/in/yash-verma-5a6937285"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+            </div>
+            {/* Social Links */}
+            <div className="flex gap-4 justify-center pt-6">
+              <a
+                href="https://github.com/vyash0007"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:scale-125"
+                title="GitHub"
+              >
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/yash-verma-5a6937285"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-all hover:scale-125"
+                title="LinkedIn"
+              >
+                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a
+                href="mailto:vyash5407@gmail.com"
+                className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-all hover:scale-125"
+                title="Email"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+        <div className={`max-w-4xl mx-auto ${getAnimationClass('about')}`}>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+            About Me
+          </h2>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-6 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
+            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+              I'm a web developer with a passion for building modern, responsive websites and applications. 
+              I love exploring new technologies and continuously improving my skills in web development.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+              <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl hover:scale-105 transition-transform">
+                <div className="mb-2 flex justify-center">
+                  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                  </svg>
+                </div>
+                <div className="font-semibold text-slate-900 dark:text-white">Education</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">B.Tech CSE</div>
+              </div>
+              <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl hover:scale-105 transition-transform">
+                <div className="mb-2 flex justify-center">
+                  <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div className="font-semibold text-slate-900 dark:text-white">Projects</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">3+ Completed</div>
+              </div>
+              <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl hover:scale-105 transition-transform">
+                <div className="mb-2 flex justify-center">
+                  <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  </svg>
+                </div>
+                <div className="font-semibold text-slate-900 dark:text-white">Experience</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">Web Dev</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+        <div className={`max-w-4xl mx-auto ${getAnimationClass('education')}`}>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-12 text-center">
+            Education
+          </h2>
+          <div className="space-y-6">
+            {/* University */}
+            <div className="group bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-blue-900/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:scale-[1.02]">
+              <div className="flex items-start gap-4">
+                <div className="group-hover:scale-110 transition-transform">
+                  <svg className="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      Bachelor of Technology in Computer Science Engineering
+                    </h3>
+                    <span className="text-blue-600 dark:text-blue-400 font-semibold mt-2 md:mt-0 bg-blue-100 dark:bg-blue-900/30 px-4 py-1 rounded-full text-sm">
+                      2022 - 2026
+                    </span>
+                  </div>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 font-semibold">
+                    Guru Gobind Singh Indraprastha University
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400 mt-2">
+                    Pursuing undergraduate degree in Computer Science Engineering
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* School */}
+            <div className="group bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:scale-[1.02]">
+              <div className="flex items-start gap-4">
+                <div className="group-hover:scale-110 transition-transform">
+                  <svg className="w-12 h-12 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                      Senior Secondary Education (12th Standard)
+                    </h3>
+                    <span className="text-purple-600 dark:text-purple-400 font-semibold mt-2 md:mt-0 bg-purple-100 dark:bg-purple-900/30 px-4 py-1 rounded-full text-sm">
+                      Completed 2022
+                    </span>
+                  </div>
+                  <p className="text-lg text-slate-600 dark:text-slate-300 font-semibold">
+                    Apeejay School, Panchsheel Park
+                  </p>
+                  <p className="text-slate-500 dark:text-slate-400 mt-2">
+                    Successfully completed senior secondary education
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+        <div className={`max-w-7xl mx-auto ${getAnimationClass('projects')}`}>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+            Featured Projects
+          </h2>
+          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto text-lg">
+            Explore my live projects - hover to interact, click to visit the full experience.
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Horizon Banking App */}
+            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://horizon-banking-app-alpha.vercel.app"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="Horizon Banking App Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-blue-600 dark:fill-blue-400 animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
+                </div>
+              </div>
+              <div className="p-8 space-y-4">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300">
+                  Horizon Banking App
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  A modern banking application with secure authentication, real-time transactions, and comprehensive financial management features. Built with cutting-edge technologies for optimal performance.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-blue-700 dark:fill-blue-300" viewBox="0 0 24 24">
+                      <rect x="2" y="5" width="20" height="14" rx="2"/>
+                      <rect x="2" y="12" width="20" height="2"/>
+                    </svg>
+                    Banking
+                  </span>
+                  <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-purple-700 dark:fill-purple-300" viewBox="0 0 24 24">
+                      <path d="M12 2L2 7v2h20V7l-10-5zM4 11v10h3v-6h10v6h3V11H4z"/>
+                    </svg>
+                    Finance
+                  </span>
+                  <span className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-indigo-700 dark:fill-indigo-300" viewBox="0 0 24 24">
+                      <path d="M12 2C9.24 2 7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V12c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v3H9V7c0-1.66 1.34-3 3-3z"/>
+                    </svg>
+                    Secure
+                  </span>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href="https://horizon-banking-app-alpha.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="https://github.com/vyash0007/Horizon-Banking-App.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Anonymous Feedback */}
+            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-green-400 dark:hover:border-green-500 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-green-500 to-teal-600 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://ama-app-alpha.vercel.app"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="Anonymous Feedback App Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-semibold text-green-600 dark:text-green-400 flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-green-600 dark:fill-green-400 animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
+                </div>
+              </div>
+              <div className="p-8 space-y-4">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-all duration-300">
+                  Anonymous Feedback
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  An AMA (Ask Me Anything) application enabling anonymous feedback and questions in a safe, judgment-free environment. Perfect for honest communication and constructive feedback.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-green-700 dark:fill-green-300" viewBox="0 0 24 24">
+                      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                    </svg>
+                    Social
+                  </span>
+                  <span className="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-teal-700 dark:fill-teal-300" viewBox="0 0 24 24">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                    Anonymous
+                  </span>
+                  <span className="px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-emerald-700 dark:fill-emerald-300" viewBox="0 0 24 24">
+                      <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 15l-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"/>
+                    </svg>
+                    Safe
+                  </span>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href="https://ama-app-alpha.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="https://github.com/vyash0007/AMA-APP.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* GestureLang */}
+            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-500 hover:-translate-y-2 lg:col-span-2">
+              <div className="grid lg:grid-cols-2 gap-0">
+                <div className="h-80 lg:h-auto bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden cursor-pointer">
+                  <iframe
+                    src="https://gesture-lang.vercel.app"
+                    className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                    style={{ width: '285%', height: '285%' }}
+                    title="GestureLang App Preview"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                  <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                    <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-2">
+                      <svg className="w-3 h-3 fill-orange-600 dark:fill-orange-400 animate-pulse" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                      </svg>
+                      LIVE
+                    </span>
+                  </div>
+                </div>
+                <div className="p-8 space-y-4 flex flex-col justify-center">
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-all duration-300">
+                    GestureLang
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                    An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                      <svg className="w-4 h-4 fill-orange-700 dark:fill-orange-300" viewBox="0 0 24 24">
+                        <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
+                      </svg>
+                      AI/ML
+                    </span>
+                    <span className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                      <svg className="w-4 h-4 fill-red-700 dark:fill-red-300" viewBox="0 0 24 24">
+                        <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                      </svg>
+                      Accessibility
+                    </span>
+                    <span className="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                      <svg className="w-4 h-4 fill-amber-700 dark:fill-amber-300" viewBox="0 0 24 24">
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+                      </svg>
+                      Real-time
+                    </span>
+                  </div>
+                  <div className="flex gap-3 pt-2">
+                    <a
+                      href="https://gesture-lang.vercel.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    >
+                      <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      </svg>
+                      Live Demo
+                    </a>
+                    <a
+                      href="https://github.com/vyash0007/GestureLang.git"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    >
+                      <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                      </svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+        <div className={`max-w-5xl mx-auto ${getAnimationClass('skills')}`}>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+            Skills & Technologies
+          </h2>
+          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
+            Technologies and tools I use to bring ideas to life.
+          </p>
+          
+          {/* Tech Categories */}
+          <div className="space-y-8">
+            {/* Programming Languages */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+                Programming Languages
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { name: 'C', logo: <svg viewBox="0 0 128 128" className="w-12 h-12"><path fill="#659AD3" d="M115.4 30.7L67.1 2.9c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.4 1 3.5l106.8-62c-.6-1.2-1.5-2.1-2.4-2.7z"/><path fill="#03599C" d="M10.7 95.3c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7 1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c0-.9-.1-1.9-.6-2.8l-106.6 62z"/><path fill="#fff" d="M85.3 76.1C81.1 83.5 73.1 88.5 64 88.5c-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6z"/></svg>, color: 'blue' },
+                  { name: 'C++', logo: <svg viewBox="0 0 128 128" className="w-12 h-12"><path fill="#659AD3" d="M115.4 30.7L67.1 2.9c-.8-.5-1.9-.7-3.1-.7-1.2 0-2.3.3-3.1.7l-48 27.9c-1.7 1-2.9 3.5-2.9 5.4v55.7c0 1.1.2 2.4 1 3.5l106.8-62c-.6-1.2-1.5-2.1-2.4-2.7z"/><path fill="#03599C" d="M10.7 95.3c.5.8 1.2 1.5 1.9 1.9l48.2 27.9c.8.5 1.9.7 3.1.7 1.2 0 2.3-.3 3.1-.7l48-27.9c1.7-1 2.9-3.5 2.9-5.4V36.1c0-.9-.1-1.9-.6-2.8l-106.6 62z"/><path fill="#fff" d="M85.3 76.1C81.1 83.5 73.1 88.5 64 88.5c-13.5 0-24.5-11-24.5-24.5s11-24.5 24.5-24.5c9.1 0 17.1 5 21.3 12.5l13-7.5c-6.8-11.9-19.6-20-34.3-20-21.8 0-39.5 17.7-39.5 39.5s17.7 39.5 39.5 39.5c14.6 0 27.4-8 34.2-19.8l-12.9-7.6zM115 60.5v5h-5v5h-5v-5h-5v-5h5v-5h5v5h5zm-15 0v5h-5v5h-5v-5h-5v-5h5v-5h5v5h5z"/></svg>, color: 'indigo' },
+                  { name: 'Java', logo: <svg viewBox="0 0 128 128" className="w-12 h-12"><g><path fill="#5382A1" d="M47.617 98.12s-4.767 2.774 3.397 3.71c9.892 1.13 14.947.968 25.845-1.092 0 0 2.871 1.795 6.873 3.351-24.439 10.47-55.308-.607-36.115-5.969zm-2.988-13.665s-5.348 3.959 2.823 4.805c10.567 1.091 18.91 1.18 33.354-1.6 0 0 1.993 2.025 5.132 3.131-29.542 8.64-62.446.68-41.309-6.336z"/><path fill="#E76F00" d="M69.802 61.271c6.025 6.935-1.58 13.17-1.58 13.17s15.289-7.891 8.269-17.777c-6.559-9.215-11.587-13.792 15.635-29.58 0 .001-42.731 10.67-22.324 34.187z"/><path fill="#5382A1" d="M102.123 108.229s3.529 2.91-3.888 5.159c-14.102 4.272-58.706 5.56-71.094.171-4.451-1.938 3.899-4.625 6.526-5.192 2.739-.593 4.303-.485 4.303-.485-4.953-3.487-32.013 6.85-13.743 9.815 49.821 8.076 90.817-3.637 77.896-9.468zM49.912 70.294s-22.686 5.389-8.033 7.348c6.188.828 18.518.638 30.011-.326 9.39-.789 18.813-2.474 18.813-2.474s-3.308 1.419-5.704 3.053c-23.042 6.061-67.544 3.238-54.731-2.958 10.832-5.239 19.644-4.643 19.644-4.643zm40.697 22.747c23.421-12.167 12.591-23.86 5.032-22.285-1.848.385-2.677.72-2.677.72s.688-1.079 2-1.543c14.953-5.255 26.451 15.503-4.823 23.725 0-.002.359-.327.468-.617z"/><path fill="#E76F00" d="M76.491 1.587S89.459 14.563 64.188 34.51c-20.266 16.006-4.621 25.13-.007 35.559-11.831-10.673-20.509-20.07-14.688-28.815C58.041 28.42 81.722 22.195 76.491 1.587z"/><path fill="#5382A1" d="M52.214 126.021c22.476 1.437 57-.8 57.817-11.436 0 0-1.571 4.032-18.577 7.231-19.186 3.612-42.854 3.191-56.887.874 0 .001 2.875 2.381 17.647 3.331z"/></g></svg>, color: 'orange' },
+                  { name: 'Python', logo: <svg viewBox="0 0 128 128" className="w-12 h-12"><linearGradient id="python-original-a" gradientUnits="userSpaceOnUse" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stopColor="#5A9FD4"/><stop offset="1" stopColor="#306998"/></linearGradient><linearGradient id="python-original-b" gradientUnits="userSpaceOnUse" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)"><stop offset="0" stopColor="#FFD43B"/><stop offset="1" stopColor="#FFE873"/></linearGradient><path fill="url(#python-original-a)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" transform="translate(0 10.26)"/><path fill="url(#python-original-b)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" transform="translate(0 10.26)"/><radialGradient id="python-original-c" cx="1825.678" cy="444.45" r="26.743" gradientTransform="matrix(0 -.24 -1.055 0 532.979 557.576)" gradientUnits="userSpaceOnUse"><stop offset="0" stopColor="#B8B8B8" stopOpacity=".498"/><stop offset="1" stopColor="#7F7F7F" stopOpacity="0"/></radialGradient><path opacity=".444" fill="url(#python-original-c)" d="M97.309 119.597c0 3.543-14.816 6.416-33.091 6.416-18.276 0-33.092-2.873-33.092-6.416 0-3.544 14.815-6.417 33.092-6.417 18.275 0 33.091 2.872 33.091 6.417z"/></svg>, color: 'green' },
+                ].map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                  >
+                    <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
+                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Frontend */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l-5.5 9h11z"/><path d="M12 22l5.5-9h-11z"/></svg>
+                Frontend Development
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { name: 'HTML5', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#E34F26" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>, color: 'orange' },
+                  { name: 'CSS3', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#1572B6" d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>, color: 'blue' },
+                  { name: 'JavaScript', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#F7DF1E" d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>, color: 'yellow' },
+                  { name: 'React', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#61DAFB" d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></svg>, color: 'cyan' },
+                  { name: 'Next.js', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="currentColor" d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/></svg>, color: 'slate' },
+                  { name: 'Tailwind CSS', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#06B6D4" d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg>, color: 'teal' },
+                ].map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                  >
+                    <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
+                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Backend & Tools */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+                Backend & Tools
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {[
+                  { name: 'Node.js', logo: <svg viewBox="0 0 24 24" className="w-10 h-10"><path fill="#339933" d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.990,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.570,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/></svg> },
+                  { name: 'Git', logo: <svg viewBox="0 0 24 24" className="w-10 h-10"><path fill="#F05032" d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg> },
+                  { name: 'GitHub', logo: <svg viewBox="0 0 24 24" className="w-10 h-10"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> },
+                ].map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className="group bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600"
+                  >
+                    <div className="flex justify-center mb-2 group-hover:scale-110 transition-transform">{skill.logo}</div>
+                    <span className="font-semibold block text-sm text-slate-700 dark:text-slate-200">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Database */}
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c5.5 0 10 1.58 10 3.5v11c0 1.92-4.5 3.5-10 3.5S2 19.42 2 17.5v-11C2 4.58 6.5 3 12 3m0 2c-4.56 0-8 1.14-8 1.5S7.44 8 12 8s8-1.14 8-1.5S16.56 5 12 5m0 11c1.2 0 2.35-.11 3.43-.3l-.12.04c-.23.78-.66 1.47-1.24 2.02-.41.4-.9.7-1.45.91-.24.09-.49.16-.74.21C11.28 18.95 10.64 19 10 19c-1.06 0-2.07-.23-2.98-.66-.54-.26-1.03-.6-1.45-1.01-.41-.4-.74-.87-.98-1.38-.24-.51-.37-1.06-.37-1.64 0-.58.13-1.13.37-1.64.24-.51.57-.98.98-1.38.42-.41.91-.75 1.45-1.01C7.93 10.23 8.94 10 10 10c.64 0 1.28.05 1.88.12-.34.32-.63.68-.86 1.08-.29.55-.48 1.16-.55 1.8-.16-.01-.31-.01-.47-.01-1.49 0-2.75.45-3.75 1.25-.5.4-.9.86-1.17 1.37-.27.51-.4 1.06-.4 1.64s.13 1.13.4 1.64c.27.51.67.97 1.17 1.37 1 .8 2.26 1.25 3.75 1.25.16 0 .31 0 .47-.01.07.64.26 1.25.55 1.8.23.4.52.76.86 1.08-.6.07-1.24.12-1.88.12-5.56 0-10-1.58-10-3.5V6.5c0-1.92 4.44-3.5 10-3.5 5.56 0 10 1.58 10 3.5v6.66c-.85-.39-1.8-.66-2.83-.76z"/><circle cx="18.5" cy="16.5" r="5.5" fill="currentColor"/><path fill="#fff" d="M18.5 14.5v4m0 0v-4m0 4h-2m2 0h2"/></svg>
+                Databases
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { name: 'PostgreSQL', logo: <svg viewBox="0 0 432.071 445.383" className="w-12 h-12"><g><path fill="#336791" d="M323.205,324.227c2.833-23.601,1.984-27.062,19.563-23.239l4.463,0.392c13.517,0.615,31.199-2.174,41.587-7c22.362-10.376,35.622-27.7,13.572-23.148c-50.297,10.376-53.755-6.655-53.755-6.655c53.111-78.803,75.313-178.836,56.149-203.322C352.514-5.534,262.036,26.049,260.522,26.869l-0.482,0.089c-9.938-2.062-21.06-3.294-33.554-3.496c-22.761-0.374-40.032,5.967-53.133,15.904c0,0-161.408-66.498-153.899,83.628c1.597,31.936,45.777,241.655,98.47,178.31c19.259-23.163,37.871-42.748,37.871-42.748c9.242,6.14,20.307,9.272,31.912,8.147l0.897-0.765c-0.281,2.876-0.157,5.689,0.359,9.019c-13.572,15.167-9.584,17.83-36.723,23.416c-27.457,5.659-11.326,15.734-0.797,18.367c12.768,3.193,42.305,7.716,62.268-20.224l-0.795,3.188c5.325,4.26,4.965,30.619,5.72,49.452c0.756,18.834,2.017,36.409,5.856,46.771c3.839,10.36,8.369,37.05,44.036,29.406c29.809-6.388,52.6-15.582,54.677-101.107"/><path fill="#336791" d="M402.395,271.23c-50.302,10.376-53.76-6.655-53.76-6.655c53.111-78.808,75.313-178.843,56.153-203.326c-52.27-66.785-142.752-35.2-144.262-34.38l-0.486,0.087c-9.938-2.063-21.06-3.292-33.56-3.496c-22.761-0.373-40.026,5.967-53.127,15.902c0,0-161.411-66.495-153.904,83.63c1.597,31.938,45.776,241.657,98.471,178.312c19.26-23.163,37.869-42.748,37.869-42.748c9.243,6.14,20.308,9.272,31.908,8.147l0.901-0.765c-0.28,2.876-0.152,5.689,0.361,9.019c-13.575,15.167-9.586,17.83-36.723,23.416c-27.459,5.659-11.328,15.734-0.796,18.367c12.768,3.193,42.307,7.716,62.266-20.224l-0.796,3.188c5.319,4.26,9.054,27.711,8.428,48.969c-0.626,21.259-1.044,35.854,3.147,47.254c4.191,11.4,8.368,37.05,44.042,29.406c29.809-6.388,45.256-22.942,47.405-50.555c1.525-19.631,4.976-16.729,5.194-34.28l2.768-8.309c3.192-26.611,0.507-35.196,18.872-31.203l4.463,0.392c13.517,0.615,31.208-2.174,41.591-7c22.358-10.376,35.618-27.7,13.573-23.148z"/><path d="M215.866,286.484c-1.385,49.516,0.348,99.377,5.193,111.495c4.848,12.118,15.223,35.688,50.9,28.045c29.806-6.39,40.651-18.756,45.357-46.051c3.466-20.082,10.148-75.854,11.005-87.281"/><path d="M173.104,38.256c0,0-161.521-66.016-154.012,84.109c1.597,31.938,45.779,241.664,98.473,178.316c19.256-23.166,36.671-41.335,36.671-41.335"/><path d="M260.349,26.207c-5.591,1.753,89.848-34.889,144.087,34.417c19.159,24.484-3.043,124.519-56.153,203.329"/><path strokeLinejoin="bevel" d="M348.282,263.953c0,0,3.461,17.036,53.764,6.653c22.04-4.552,8.776,12.774-13.577,23.155c-18.345,8.514-59.474,10.696-60.146-1.069c-1.729-30.355,21.647-21.133,19.96-28.739c-1.525-6.85-11.979-13.573-18.894-30.338c-6.037-14.633-82.796-126.849,21.287-110.183c3.813-0.789-27.146-99.002-124.553-100.599c-97.385-1.597-94.19,119.762-94.19,119.762"/><path d="M188.604,274.334c-13.577,15.166-9.584,17.829-36.723,23.417c-27.459,5.66-11.326,15.733-0.797,18.365c12.768,3.195,42.307,7.718,62.266-20.229c6.078-8.509-0.036-22.086-8.385-25.547c-4.034-1.671-9.428-3.765-16.361,3.994z"/><path d="M187.715,274.069c-1.368-8.917,2.93-19.528,7.536-31.942c6.922-18.626,22.893-37.255,10.117-96.339c-9.523-44.029-73.396-9.163-73.436-3.193c-0.039,5.968,2.889,30.26-1.067,58.548c-5.162,36.913,23.488,68.132,56.479,64.938"/><path fill="#FFFFFF" d="M172.517,141.7c-0.288,2.039,3.733,7.48,8.976,8.207c5.234,0.73,9.714-3.522,9.998-5.559c0.284-2.039-3.732-4.285-8.977-5.015c-5.237-0.731-9.719,0.333-9.996,2.367z"/><path fill="#FFFFFF" d="M331.941,137.543c0.284,2.039-3.732,7.48-8.976,8.207c-5.238,0.73-9.718-3.522-10.005-5.559c-0.277-2.039,3.74-4.285,8.979-5.015c5.239-0.73,9.718,0.333,10.002,2.368z"/><path d="M350.676,123.432c0.863,15.994-3.445,26.888-3.988,43.914c-0.804,24.748,11.799,53.074-7.191,81.435"/></g></svg>, color: 'blue' },
+                  { name: 'MongoDB', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#47A248" d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z"/></svg>, color: 'green' },
+                  { name: 'SQL', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#00758F" d="M12 0C5.373 0 0 2.91 0 6.5v11C0 21.09 5.373 24 12 24s12-2.91 12-6.5v-11C24 2.91 18.627 0 12 0zm0 2c5.523 0 10 2.015 10 4.5S17.523 11 12 11 2 8.985 2 6.5 6.477 2 12 2zm0 20c-5.523 0-10-2.015-10-4.5v-3.914C4.174 15.416 7.882 16.5 12 16.5s7.826-1.084 10-2.914V17.5c0 2.485-4.477 4.5-10 4.5zm0-7c-5.523 0-10-2.015-10-4.5V7.586C4.174 9.416 7.882 10.5 12 10.5s7.826-1.084 10-2.914V10.5c0 2.485-4.477 4.5-10 4.5z"/></svg>, color: 'orange' },
+                  { name: 'Appwrite', logo: <svg viewBox="0 0 24 24" className="w-12 h-12"><path fill="#FD366E" d="M13.252 2.023L24 8.5v7.16l-5.188-3.002v-2.656l-5.56-3.219-5.44 3.145v6.438l5.44 3.145 2.718-1.572v3.16L13.252 22l-10.748-6.5v-7.16L13.252 2.023zM7.812 16.5v-3.438l5.44-3.145 5.56 3.219v6.438l-5.56 3.145-5.44-3.219z"/></svg>, color: 'pink' },
+                ].map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                  >
+                    <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
+                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" data-animate className="container mx-auto px-6 py-16 pb-24 scroll-mt-20">
+        <div className={`max-w-4xl mx-auto ${getAnimationClass('contact')}`}>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+            Get In Touch
+          </h2>
+          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
+            I'm always interested in new opportunities and collaborations. Let's connect!
+          </p>
+          <div className="bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-blue-900/20 rounded-2xl shadow-xl p-8 text-center border border-slate-200 dark:border-slate-700">
+            <p className="text-lg text-slate-700 dark:text-slate-300 mb-8">
+              Whether you have a project in mind, want to collaborate, or just want to say hi, I'd love to hear from you!
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <a
+                href="mailto:vyash5407@gmail.com"
+                className="group inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                Email Me
+              </a>
+              <a
+                href="https://www.linkedin.com/in/yash-verma-5a6937285"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/vyash0007"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+            </div>
+            {/* Download Resume Button */}
+            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
+              <a
+                href="/CV_YashV.pdf"
+                download="Yash_Verma_Resume.pdf"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                Download Resume
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-300 py-16 overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            {/* Brand Section */}
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="bg-blue-600 text-white font-bold text-xl px-4 py-2 rounded-lg">
+                  YV
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-white">Yash Verma</div>
+                  <p className="text-slate-400 text-sm">Web Developer | CSE Student</p>
+                </div>
+              </div>
+              <p className="text-slate-400 leading-relaxed mb-4 max-w-md">
+                Passionate about creating beautiful and functional web experiences. 
+                Transforming ideas into reality through code.
+              </p>
+              <div className="flex items-center gap-2 text-slate-500 text-sm">
+                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+                Building the future, one line of code at a time
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="text-white font-bold text-lg mb-4">
+                Quick Links
+              </h3>
+              <div className="flex flex-col gap-3">
+                <a href="#about" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">About</a>
+                <a href="#education" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Education</a>
+                <a href="#projects" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Projects</a>
+                <a href="#skills" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Skills</a>
+                <a href="#contact" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Contact</a>
+              </div>
+            </div>
+
+            {/* Connect Section */}
+            <div>
+              <h3 className="text-white font-bold text-lg mb-4">
+                Connect
+              </h3>
+              <div className="flex flex-col gap-3 mb-6">
+                <a
+                  href="mailto:vyash5407@gmail.com"
+                  className="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 group"
+                >
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  <span className="text-sm">vyash5407@gmail.com</span>
+                </a>
+              </div>
+              <div className="flex gap-3">
+                <a
+                  href="https://github.com/vyash0007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative"
+                  title="GitHub"
+                >
+                  <div className="absolute inset-0 bg-blue-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition-opacity"></div>
+                  <div className="relative bg-slate-800 hover:bg-slate-700 p-3 rounded-lg transition-all group-hover:scale-110">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </div>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/yash-verma-5a6937285"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative"
+                  title="LinkedIn"
+                >
+                  <div className="absolute inset-0 bg-blue-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition-opacity"></div>
+                  <div className="relative bg-slate-800 hover:bg-blue-600 p-3 rounded-lg transition-all group-hover:scale-110">
+                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-slate-800 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-slate-400 text-sm">
+                &copy; 2025 Yash Verma. All rights reserved.
+              </div>
+              <div className="flex items-center gap-2 text-slate-400 text-sm">
+                <span>Built with</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 rounded-full">
+                  <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/>
+                  </svg>
+                  Next.js
+                </span>
+                <span>&</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 rounded-full">
+                  <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
+                  </svg>
+                  Tailwind
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-500 text-sm">
+                <span>Made with</span>
+                <svg className="w-4 h-4 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span>&</span>
+                <svg className="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2M4 19h16v2H4z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-50 animate-slideUp"
+          aria-label="Scroll to top"
+        >
+          <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+}
