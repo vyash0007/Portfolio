@@ -505,78 +505,151 @@ export default function Home() {
               </div>
             </div>
 
-            {/* GestureLang */}
-            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-500 hover:-translate-y-2 lg:col-span-2">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="h-80 lg:h-auto bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden cursor-pointer">
-                  <iframe
-                    src="https://gesture-lang.vercel.app"
-                    className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
-                    style={{ width: '285%', height: '285%' }}
-                    title="GestureLang App Preview"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                  <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                    <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-2">
-                      <svg className="w-3 h-3 fill-orange-600 dark:fill-orange-400 animate-pulse" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"/>
-                      </svg>
-                      LIVE
-                    </span>
-                  </div>
+            {/* Dry Clean Service App */}
+            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-cyan-500 to-blue-600 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://newmoderndrycleaners.vercel.app"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="Dry Clean Service App Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-semibold text-cyan-600 dark:text-cyan-400 flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-cyan-600 dark:fill-cyan-400 animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
                 </div>
-                <div className="p-8 space-y-4 flex flex-col justify-center">
-                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-all duration-300">
-                    GestureLang
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                    An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                      <svg className="w-4 h-4 fill-orange-700 dark:fill-orange-300" viewBox="0 0 24 24">
-                        <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
-                      </svg>
-                      AI/ML
-                    </span>
-                    <span className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                      <svg className="w-4 h-4 fill-red-700 dark:fill-red-300" viewBox="0 0 24 24">
-                        <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
-                      </svg>
-                      Accessibility
-                    </span>
-                    <span className="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                      <svg className="w-4 h-4 fill-amber-700 dark:fill-amber-300" viewBox="0 0 24 24">
-                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
-                      </svg>
-                      Real-time
-                    </span>
-                  </div>
-                  <div className="flex gap-3 pt-2">
-                    <a
-                      href="https://gesture-lang.vercel.app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 text-center bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                      </svg>
-                      Live Demo
-                    </a>
-                    <a
-                      href="https://github.com/vyash0007/GestureLang.git"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
-                    >
-                      <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
-                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-                      </svg>
-                      GitHub
-                    </a>
-                  </div>
+              </div>
+              <div className="p-8 space-y-4">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-all duration-300">
+                  Dry Clean Service App
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  A modern dry cleaning service platform offering seamless booking, order tracking, and customer management. Features real-time updates and an intuitive user experience for both customers and service providers.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-4 py-2 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-cyan-700 dark:fill-cyan-300" viewBox="0 0 24 24">
+                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
+                      <path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
+                    </svg>
+                    Service
+                  </span>
+                  <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-blue-700 dark:fill-blue-300" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                    Booking
+                  </span>
+                  <span className="px-4 py-2 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-sky-700 dark:fill-sky-300" viewBox="0 0 24 24">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    Tracking
+                  </span>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href="https://newmoderndrycleaners.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="https://github.com/vyash0007/DryCleanServiceApp.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* GestureLang */}
+            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-500 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://gesture-lang.vercel.app"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="GestureLang App Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                  <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-orange-600 dark:fill-orange-400 animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
+                </div>
+              </div>
+              <div className="p-8 space-y-4">
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-all duration-300">
+                  GestureLang
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-orange-700 dark:fill-orange-300" viewBox="0 0 24 24">
+                      <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
+                    </svg>
+                    AI/ML
+                  </span>
+                  <span className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-red-700 dark:fill-red-300" viewBox="0 0 24 24">
+                      <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                    </svg>
+                    Accessibility
+                  </span>
+                  <span className="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
+                    <svg className="w-4 h-4 fill-amber-700 dark:fill-amber-300" viewBox="0 0 24 24">
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+                    </svg>
+                    Real-time
+                  </span>
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <a
+                    href="https://gesture-lang.vercel.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Live Demo
+                  </a>
+                  <a
+                    href="https://github.com/vyash0007/GestureLang.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
                 </div>
               </div>
             </div>
