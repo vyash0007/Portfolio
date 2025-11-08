@@ -1,13 +1,13 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const [showScrollTop, setShowScrollTop] = useState(false);
-  const [visibleSections, setVisibleSections] = useState(new Set());
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       setShowScrollTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setVisibleSections((prev) => new Set([...prev, entry.target.id]));
@@ -32,11 +32,11 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = (): void => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const getAnimationClass = (sectionId, delay = 0) => {
+  const getAnimationClass = (sectionId: string, delay: number = 0): string => {
     const isVisible = visibleSections.has(sectionId);
     return `transition-all duration-1000 ease-out ${delay > 0 ? `delay-${delay}` : ''} ${
       isVisible 
@@ -45,7 +45,7 @@ export default function Home() {
     }`;
   };
 
-  const handleNavClick = () => {
+  const handleNavClick = (): void => {
     setMobileMenuOpen(false);
   };
 
