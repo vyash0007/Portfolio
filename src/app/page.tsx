@@ -1,15 +1,34 @@
 'use client';
 import { useState, useEffect } from 'react';
+import ContactForm from './components/ContactForm';
 
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>('hero');
 
   useEffect(() => {
     const handleScroll = (): void => {
       setShowScrollTop(window.scrollY > 300);
+      
+      // Determine active section based on scroll position
+      const sections = ['hero', 'about', 'education', 'projects', 'contact'];
+      const scrollPosition = window.scrollY + 200;
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
+    
+    handleScroll(); // Call on mount
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -50,162 +69,181 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-blue-950 dark:to-slate-800">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg z-50 border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300 animate-slideDown">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <a href="#" className="group flex items-center gap-3">
-              <div className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110 hover:rotate-3">
-                YV
-              </div>
-              <div className="hidden md:block">
-                <div className="text-lg font-bold text-slate-900 dark:text-white transition-colors">Yash Verma</div>
-                <div className="text-xs text-slate-500 dark:text-slate-400 transition-colors">Web Developer</div>
-              </div>
-            </a>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex gap-8 items-center">
-              <a href="#about" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
-                <span>About</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#education" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
-                <span>Education</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#projects" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
-                <span>Projects</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#skills" className="relative text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium group">
-                <span>Skills</span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
-              </a>
-              <a href="#contact" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md">
-                Contact
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2"
-              aria-label="Toggle menu"
+    <div className="min-h-screen bg-black">
+      {/* Right Sidebar Navigation */}
+      <nav className="hidden lg:block fixed right-8 top-1/4 -translate-y-1/2 z-50 animate-slideLeft">
+        <div className="bg-black rounded-3xl shadow-2xl overflow-hidden w-72 border border-white/10">
+          <div className="p-4 space-y-1">
+            <a 
+              href="#about" 
+              className={`flex items-center justify-between px-6 py-4 transition-all duration-300 rounded-xl font-medium group relative overflow-hidden ${
+                activeSection === 'about' 
+                  ? 'bg-white text-black' 
+                  : 'text-white hover:bg-white/10'
+              }`}
             >
-              {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-              )}
-            </button>
+              <span className="text-sm tracking-widest font-semibold relative z-10">ABOUT ME</span>
+              <span className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'about' 
+                  ? 'bg-black border-black scale-100' 
+                  : 'border-white/40 group-hover:border-white group-hover:scale-110'
+              }`}></span>
+            </a>
+            <a 
+              href="#education" 
+              className={`flex items-center justify-between px-6 py-4 transition-all duration-300 rounded-xl font-medium group relative overflow-hidden ${
+                activeSection === 'education' 
+                  ? 'bg-white text-black' 
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <span className="text-sm tracking-widest font-semibold relative z-10">RESUME</span>
+              <span className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'education' 
+                  ? 'bg-black border-black scale-100' 
+                  : 'border-white/40 group-hover:border-white group-hover:scale-110'
+              }`}></span>
+            </a>
+            <a 
+              href="#projects" 
+              className={`flex items-center justify-between px-6 py-4 transition-all duration-300 rounded-xl font-medium group relative overflow-hidden ${
+                activeSection === 'projects' 
+                  ? 'bg-white text-black' 
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <span className="text-sm tracking-widest font-semibold relative z-10">PORTFOLIO</span>
+              <span className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'projects' 
+                  ? 'bg-black border-black scale-100' 
+                  : 'border-white/40 group-hover:border-white group-hover:scale-110'
+              }`}></span>
+            </a>
+            <a 
+              href="#contact" 
+              className={`flex items-center justify-between px-6 py-4 transition-all duration-300 rounded-xl font-medium group relative overflow-hidden ${
+                activeSection === 'contact' 
+                  ? 'bg-white text-black' 
+                  : 'text-white hover:bg-white/10'
+              }`}
+            >
+              <span className="text-sm tracking-widest font-semibold relative z-10">CONTACT</span>
+              <span className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'contact' 
+                  ? 'bg-black border-black scale-100' 
+                  : 'border-white/40 group-hover:border-white group-hover:scale-110'
+              }`}></span>
+            </a>
           </div>
+        </div>
+      </nav>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 space-y-3 animate-slideDown">
-              <a 
-                href="#about" 
-                onClick={handleNavClick}
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                About
-              </a>
-              <a 
-                href="#education" 
-                onClick={handleNavClick}
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                Education
-              </a>
-              <a 
-                href="#projects" 
-                onClick={handleNavClick}
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                Projects
-              </a>
-              <a 
-                href="#skills" 
-                onClick={handleNavClick}
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 font-medium py-2 px-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                Skills
-              </a>
-              <a 
-                href="#contact" 
-                onClick={handleNavClick}
-                className="block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg shadow-md text-center"
-              >
-                Contact
-              </a>
-            </div>
-          )}
+      {/* Mobile Top Navigation */}
+      <nav className="lg:hidden fixed top-0 w-full bg-black/95 backdrop-blur-xl z-50 border-b border-white/10 animate-slideDown">
+        <div className="container mx-auto px-4 py-4">
+          {/* Horizontal Tab Navigation */}
+          <div className="flex justify-center items-center gap-2 max-w-md mx-auto">
+            <a 
+              href="#about" 
+              onClick={handleNavClick}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'about' 
+                  ? 'bg-white border-white text-black' 
+                  : 'border-white/30 text-white hover:border-white/60'
+              }`}
+            >
+              <span className="text-sm font-bold">A</span>
+            </a>
+            <a 
+              href="#education" 
+              onClick={handleNavClick}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'education' 
+                  ? 'bg-white border-white text-black' 
+                  : 'border-white/30 text-white hover:border-white/60'
+              }`}
+            >
+              <span className="text-sm font-bold">R</span>
+            </a>
+            <a 
+              href="#projects" 
+              onClick={handleNavClick}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'projects' 
+                  ? 'bg-white border-white text-black' 
+                  : 'border-white/30 text-white hover:border-white/60'
+              }`}
+            >
+              <span className="text-sm font-bold">P</span>
+            </a>
+            <a 
+              href="#contact" 
+              onClick={handleNavClick}
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
+                activeSection === 'contact' 
+                  ? 'bg-white border-white text-black' 
+                  : 'border-white/30 text-white hover:border-white/60'
+              }`}
+            >
+              <span className="text-sm font-bold">C</span>
+            </a>
+          </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" data-animate className="container mx-auto px-6 py-32 md:py-40 mt-16">
-        <div className={`max-w-4xl mx-auto ${getAnimationClass('hero')}`}>
-          <div className="text-center space-y-8 animate-fade-in">
-            <div className="inline-block">
-              <div className="relative">
-                <div className="absolute inset-0 bg-blue-600 blur-3xl opacity-20 animate-pulse"></div>
-                <h1 className="relative text-5xl md:text-7xl font-bold text-slate-900 dark:text-white">
-                  Hi, I'm <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 text-transparent bg-clip-text">Yash Verma</span>
-                </h1>
-              </div>
+      <section id="hero" data-animate className="container mx-auto px-6 lg:pr-80 pt-24 pb-60 md:pt-32 md:pb-72 lg:pb-80 lg:mt-0 mt-16">
+        <div className={`max-w-4xl ${getAnimationClass('hero')}`}>
+          <div className="space-y-6 animate-fade-in">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-bold text-white">
+                Hi, I'm <span className="text-white">Yash Verma</span>
+              </h1>
             </div>
-            <p className="text-2xl md:text-3xl text-slate-600 dark:text-slate-300 font-medium flex items-center justify-center gap-2">
-              <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p className="text-2xl md:text-3xl text-gray-300 font-medium flex items-center gap-2">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
               Web Developer
             </p>
-            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
               Passionate about creating beautiful and functional web experiences. 
               Currently pursuing Bachelor's in Technology in Computer Science Engineering.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center pt-4">
+            <div className="flex flex-wrap gap-3 pt-4">
               <a
                 href="#projects"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
                 View Projects
               </a>
               <a
                 href="#contact"
-                className="bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg"
+                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg border border-white/20 text-sm sm:text-base"
               >
                 Contact Me
               </a>
               <a
-                href="https://www.linkedin.com/in/yash-verma-5a6937285"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+                href="/CV_YashV.pdf"
+                download="Yash_Verma_Resume.pdf"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm sm:text-base"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
-                LinkedIn
+                My Resume
               </a>
             </div>
             {/* Social Links */}
-            <div className="flex gap-4 justify-center pt-6">
+            <div className="flex gap-4 pt-6">
               <a
                 href="https://github.com/vyash0007"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:scale-125"
+                className="w-12 h-12 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all hover:scale-110 hover:border-white"
                 title="GitHub"
               >
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
               </a>
@@ -213,20 +251,20 @@ export default function Home() {
                 href="https://www.linkedin.com/in/yash-verma-5a6937285"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 transition-all hover:scale-125"
+                className="w-12 h-12 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all hover:scale-110 hover:border-white"
                 title="LinkedIn"
               >
-                <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
               </a>
               <a
                 href="mailto:vyash5407@gmail.com"
-                className="text-slate-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 transition-all hover:scale-125"
+                className="w-12 h-12 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black transition-all hover:scale-110 hover:border-white"
                 title="Email"
               >
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </a>
             </div>
@@ -235,110 +273,175 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+      <section id="about" data-animate className="container mx-auto px-6 lg:pr-80 py-12 scroll-mt-20">
         <div className={`max-w-4xl mx-auto ${getAnimationClass('about')}`}>
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-8 text-center">
+          <h2 className="text-4xl font-bold text-white mb-6">
             About Me
           </h2>
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 space-y-6 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700">
-            <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+          <div className="bg-white/5 shadow-xl p-6 space-y-4 hover:shadow-2xl transition-all duration-300 border border-white/10">
+            <p className="text-lg text-gray-300 leading-relaxed">
               I'm a web developer with a passion for building modern, responsive websites and applications. 
               I love exploring new technologies and continuously improving my skills in web development.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-              <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl hover:scale-105 transition-transform">
-                <div className="mb-2 flex justify-center">
-                  <svg className="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
-                  </svg>
-                </div>
-                <div className="font-semibold text-slate-900 dark:text-white">Education</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">B.Tech CSE</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+                <div className="font-semibold text-white">Education</div>
+                <div className="text-sm text-gray-400">B.Tech CSE</div>
               </div>
-              <div className="text-center p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl hover:scale-105 transition-transform">
-                <div className="mb-2 flex justify-center">
-                  <svg className="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                  </svg>
-                </div>
-                <div className="font-semibold text-slate-900 dark:text-white">Projects</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">3+ Completed</div>
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+                <div className="font-semibold text-white">Projects</div>
+                <div className="text-sm text-gray-400">3+ Completed</div>
               </div>
-              <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl hover:scale-105 transition-transform">
-                <div className="mb-2 flex justify-center">
-                  <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                  </svg>
-                </div>
-                <div className="font-semibold text-slate-900 dark:text-white">Experience</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">Web Dev</div>
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+                <div className="font-semibold text-white">Experience</div>
+                <div className="text-sm text-gray-400">Web Dev</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Education Section */}
-      <section id="education" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
-        <div className={`max-w-4xl mx-auto ${getAnimationClass('education')}`}>
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-12 text-center">
-            Education
+      {/* Education & Experience Section */}
+      <section id="education" data-animate className="container mx-auto px-6 lg:pr-80 py-12 scroll-mt-20">
+        <div className={`max-w-7xl mx-auto ${getAnimationClass('education')}`}>
+          <h2 className="text-4xl font-bold text-white mb-8">
+            Education & Experience
           </h2>
-          <div className="space-y-6">
-            {/* University */}
-            <div className="group bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-blue-900/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:scale-[1.02]">
-              <div className="flex items-start gap-4">
-                <div className="group-hover:scale-110 transition-transform">
-                  <svg className="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                      Bachelor of Technology in Computer Science Engineering
-                    </h3>
-                    <span className="text-blue-600 dark:text-blue-400 font-semibold mt-2 md:mt-0 bg-blue-100 dark:bg-blue-900/30 px-4 py-1 rounded-full text-sm">
-                      2022 - 2026
-                    </span>
+          
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Education Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6 pb-3 border-b-2 border-white/20">
+                EDUCATION
+              </h3>
+              <div className="relative">
+                {/* Vertical Line - Now visible on mobile too */}
+                <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/20 via-white/40 to-white/20"></div>
+                
+                <div className="space-y-8">
+                  {/* Education Item 1 */}
+                  <div className="relative pl-16 md:pl-20">
+                    {/* Timeline Dot - Now visible on mobile too */}
+                    <div className="flex absolute left-[18px] md:left-[26px] top-6 w-5 h-5 bg-white rounded-full border-4 border-black z-10"></div>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-white/10 border border-white/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-full mb-3">
+                          <span className="text-sm font-semibold text-white">2022 - 2026</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">
+                          Bachelor's Degree
+                        </h4>
+                        <p className="text-gray-300 mb-2">
+                          @ Guru Gobind Singh Indraprastha University
+                        </p>
+                        <p className="text-gray-400 text-sm">
+                          Pursuing B.Tech in Computer Science Engineering
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 font-semibold">
-                    Guru Gobind Singh Indraprastha University
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-400 mt-2">
-                    Pursuing undergraduate degree in Computer Science Engineering
-                  </p>
+
+                  {/* Education Item 2 */}
+                  <div className="relative pl-16 md:pl-20">
+                    {/* Timeline Dot - Now visible on mobile too */}
+                    <div className="flex absolute left-[18px] md:left-[26px] top-6 w-5 h-5 bg-white rounded-full border-4 border-black z-10"></div>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-white/10 border border-white/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-full mb-3">
+                          <span className="text-sm font-semibold text-white">Completed 2022</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">
+                          Senior Secondary Education
+                        </h4>
+                        <p className="text-gray-300 mb-2">
+                          @ Apeejay School, Panchsheel Park
+                        </p>
+                        <p className="text-gray-400 text-sm">
+                          Successfully completed 12th Standard
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* School */}
-            <div className="group bg-gradient-to-br from-white to-purple-50 dark:from-slate-800 dark:to-purple-900/20 rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:scale-[1.02]">
-              <div className="flex items-start gap-4">
-                <div className="group-hover:scale-110 transition-transform">
-                  <svg className="w-12 h-12 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                      Senior Secondary Education (12th Standard)
-                    </h3>
-                    <span className="text-purple-600 dark:text-purple-400 font-semibold mt-2 md:mt-0 bg-purple-100 dark:bg-purple-900/30 px-4 py-1 rounded-full text-sm">
-                      Completed 2022
-                    </span>
+            {/* Experience Column */}
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-6 pb-3 border-b-2 border-white/20">
+                INTERNSHIPS
+              </h3>
+              <div className="relative">
+                {/* Vertical Line - Now visible on mobile too */}
+                <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-white/20 via-white/40 to-white/20"></div>
+                
+                <div className="space-y-8">
+                  {/* Internship 1 - Ecorp */}
+                  <div className="relative pl-16 md:pl-20">
+                    {/* Timeline Dot - Now visible on mobile too */}
+                    <div className="flex absolute left-[18px] md:left-[26px] top-6 w-5 h-5 bg-white rounded-full border-4 border-black z-10"></div>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-white/10 border border-white/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-full mb-3">
+                          <span className="text-sm font-semibold text-white">01 Jul, 2025 - 01 Oct, 2025</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-1">
+                          Ecorp Infosystems
+                        </h4>
+                        <p className="text-gray-400 text-sm mb-2">IT / Computers - Software</p>
+                        <p className="text-gray-300 font-semibold">
+                          Full Stack Web Developer
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 font-semibold">
-                    Apeejay School, Panchsheel Park
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-400 mt-2">
-                    Successfully completed senior secondary education
-                  </p>
+
+                  {/* Internship 2 - Mersate */}
+                  <div className="relative pl-16 md:pl-20">
+                    {/* Timeline Dot - Now visible on mobile too */}
+                    <div className="flex absolute left-[18px] md:left-[26px] top-6 w-5 h-5 bg-white rounded-full border-4 border-black z-10"></div>
+                    
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-12 h-12 bg-white/10 border border-white/20 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <div className="inline-block px-4 py-1 bg-white/10 border border-white/20 rounded-full mb-3">
+                          <span className="text-sm font-semibold text-white">17 Jan, 2025 - 17 May, 2025</span>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-1">
+                          Mersate
+                        </h4>
+                        <p className="text-gray-400 text-sm mb-2">IT / Computers - Software</p>
+                        <p className="text-gray-300 font-semibold">
+                          Frontend Web Developer
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -347,70 +450,60 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+      <section id="projects" data-animate className="container mx-auto px-6 lg:pr-80 py-12 scroll-mt-20">
         <div className={`max-w-7xl mx-auto ${getAnimationClass('projects')}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3">
             Featured Projects
           </h2>
-          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 mb-8 max-w-2xl text-lg">
             Explore my live projects - hover to interact, click to visit the full experience.
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Horizon Banking App */}
-            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-2">
-              <div className="h-80 bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://horizon-banking-app-alpha.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
                   style={{ width: '285%', height: '285%' }}
                   title="Horizon Banking App Preview"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-2">
-                    <svg className="w-3 h-3 fill-blue-600 dark:fill-blue-400 animate-pulse" viewBox="0 0 24 24">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                     </svg>
                     LIVE
                   </span>
                 </div>
               </div>
-              <div className="p-8 space-y-4">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-300">
+              <div className="p-6 space-y-3">
+                <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
                   Horizon Banking App
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   A modern banking application with secure authentication, real-time transactions, and comprehensive financial management features. Built with cutting-edge technologies for optimal performance.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-blue-700 dark:fill-blue-300" viewBox="0 0 24 24">
-                      <rect x="2" y="5" width="20" height="14" rx="2"/>
-                      <rect x="2" y="12" width="20" height="2"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Banking
                   </span>
-                  <span className="px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-purple-700 dark:fill-purple-300" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7v2h20V7l-10-5zM4 11v10h3v-6h10v6h3V11H4z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Finance
                   </span>
-                  <span className="px-4 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-indigo-700 dark:fill-indigo-300" viewBox="0 0 24 24">
-                      <path d="M12 2C9.24 2 7 4.24 7 7v3H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V12c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm0 2c1.66 0 3 1.34 3 3v3H9V7c0-1.66 1.34-3 3-3z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Secure
                   </span>
                 </div>
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-1">
                   <a
                     href="https://horizon-banking-app-alpha.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
-                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
@@ -420,7 +513,7 @@ export default function Home() {
                     href="https://github.com/vyash0007/Horizon-Banking-App.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -432,59 +525,50 @@ export default function Home() {
             </div>
 
             {/* Anonymous Feedback */}
-            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-green-400 dark:hover:border-green-500 hover:-translate-y-2">
-              <div className="h-80 bg-gradient-to-br from-green-500 to-teal-600 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://ama-app-alpha.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
                   style={{ width: '285%', height: '285%' }}
                   title="Anonymous Feedback App Preview"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-semibold text-green-600 dark:text-green-400 flex items-center gap-2">
-                    <svg className="w-3 h-3 fill-green-600 dark:fill-green-400 animate-pulse" viewBox="0 0 24 24">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                     </svg>
                     LIVE
                   </span>
                 </div>
               </div>
-              <div className="p-8 space-y-4">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-all duration-300">
+              <div className="p-6 space-y-3">
+                <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
                   Anonymous Feedback
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   An AMA (Ask Me Anything) application enabling anonymous feedback and questions in a safe, judgment-free environment. Perfect for honest communication and constructive feedback.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-green-700 dark:fill-green-300" viewBox="0 0 24 24">
-                      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Social
                   </span>
-                  <span className="px-4 py-2 bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-teal-700 dark:fill-teal-300" viewBox="0 0 24 24">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Anonymous
                   </span>
-                  <span className="px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-emerald-700 dark:fill-emerald-300" viewBox="0 0 24 24">
-                      <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 15l-4-4 1.41-1.41L11 14.17l5.59-5.59L18 10l-7 7z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Safe
                   </span>
                 </div>
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-1">
                   <a
                     href="https://ama-app-alpha.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
-                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
@@ -494,7 +578,7 @@ export default function Home() {
                     href="https://github.com/vyash0007/AMA-APP.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -506,8 +590,8 @@ export default function Home() {
             </div>
 
             {/* Dry Clean Service App */}
-            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 hover:-translate-y-2">
-              <div className="h-80 bg-gradient-to-br from-cyan-500 to-blue-600 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://newmoderndrycleaners.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -515,51 +599,41 @@ export default function Home() {
                   title="Dry Clean Service App Preview"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-semibold text-cyan-600 dark:text-cyan-400 flex items-center gap-2">
-                    <svg className="w-3 h-3 fill-cyan-600 dark:fill-cyan-400 animate-pulse" viewBox="0 0 24 24">
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                     </svg>
                     LIVE
                   </span>
                 </div>
               </div>
-              <div className="p-8 space-y-4">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-all duration-300">
+              <div className="p-6 space-y-3">
+                <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
                   Dry Clean Service App
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   A modern dry cleaning service platform offering seamless booking, order tracking, and customer management. Features real-time updates and an intuitive user experience for both customers and service providers.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-cyan-700 dark:fill-cyan-300" viewBox="0 0 24 24">
-                      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/>
-                      <path d="M7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Service
                   </span>
-                  <span className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-blue-700 dark:fill-blue-300" viewBox="0 0 24 24">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Booking
                   </span>
-                  <span className="px-4 py-2 bg-sky-100 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-sky-700 dark:fill-sky-300" viewBox="0 0 24 24">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Tracking
                   </span>
                 </div>
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-1">
                   <a
                     href="https://newmoderndrycleaners.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-cyan-600 hover:bg-cyan-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
-                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
@@ -569,7 +643,7 @@ export default function Home() {
                     href="https://github.com/vyash0007/DryCleanServiceApp.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -581,59 +655,50 @@ export default function Home() {
             </div>
 
             {/* GestureLang */}
-            <div className="group bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-500 hover:-translate-y-2">
-              <div className="h-80 bg-gradient-to-br from-orange-500 to-red-600 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://gesture-lang.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
                   style={{ width: '285%', height: '285%' }}
                   title="GestureLang App Preview"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-2">
-                    <svg className="w-3 h-3 fill-orange-600 dark:fill-orange-400 animate-pulse" viewBox="0 0 24 24">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"/>
                     </svg>
                     LIVE
                   </span>
                 </div>
               </div>
-              <div className="p-8 space-y-4">
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-all duration-300">
+              <div className="p-6 space-y-3">
+                <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
                   GestureLang
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed">
                   An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-orange-700 dark:fill-orange-300" viewBox="0 0 24 24">
-                      <path d="M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     AI/ML
                   </span>
-                  <span className="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-red-700 dark:fill-red-300" viewBox="0 0 24 24">
-                      <path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Accessibility
                   </span>
-                  <span className="px-4 py-2 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-semibold transition-transform hover:scale-110 flex items-center gap-2">
-                    <svg className="w-4 h-4 fill-amber-700 dark:fill-amber-300" viewBox="0 0 24 24">
-                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
-                    </svg>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Real-time
                   </span>
                 </div>
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-3 pt-1">
                   <a
                     href="https://gesture-lang.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
-                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
@@ -643,7 +708,7 @@ export default function Home() {
                     href="https://github.com/vyash0007/GestureLang.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -658,20 +723,20 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
+      {/* <section id="skills" data-animate className="container mx-auto px-6 py-16 scroll-mt-20">
         <div className={`max-w-5xl mx-auto ${getAnimationClass('skills')}`}>
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 text-center">
+          <h2 className="text-4xl font-bold text-white mb-4 text-center">
             Skills & Technologies
           </h2>
-          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
             Technologies and tools I use to bring ideas to life.
-          </p>
+          </p> */}
           
           {/* Tech Categories */}
-          <div className="space-y-8">
+          {/* <div className="space-y-8">
             {/* Programming Languages */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            {/* <div className="bg-white/5  shadow-xl p-8 border border-white/10 hover:border-white/30 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
                 Programming Languages
               </h3>
@@ -684,20 +749,20 @@ export default function Home() {
                 ].map((skill) => (
                   <div 
                     key={skill.name}
-                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                    className="bg-white/10 rounded-full p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-white/10"
                   >
                     <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                    <span className="text-white font-semibold block">
                       {skill.name}
                     </span>
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */} 
 
             {/* Frontend */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            {/* <div className="bg-white/5  shadow-xl p-8 border border-white/10 hover:border-white/30 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l-5.5 9h11z"/><path d="M12 22l5.5-9h-11z"/></svg>
                 Frontend Development
               </h3>
@@ -712,20 +777,20 @@ export default function Home() {
                 ].map((skill) => (
                   <div 
                     key={skill.name}
-                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                    className="bg-white/10 rounded-full p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-white/10"
                   >
                     <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                    <span className="text-white font-semibold block">
                       {skill.name}
                     </span>
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Backend & Tools */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            {/* <div className="bg-white/5  shadow-xl p-8 border border-white/10 hover:border-white/30 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
                 Backend & Tools
               </h3>
@@ -737,20 +802,20 @@ export default function Home() {
                 ].map((skill) => (
                   <div 
                     key={skill.name}
-                    className="group bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600"
+                    className="group bg-white/10 rounded-full p-4 text-center transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-white/10 hover:bg-white/20"
                   >
                     <div className="flex justify-center mb-2 group-hover:scale-110 transition-transform">{skill.logo}</div>
-                    <span className="font-semibold block text-sm text-slate-700 dark:text-slate-200">
+                    <span className="font-semibold block text-sm text-white">
                       {skill.name}
                     </span>
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Database */}
-            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            {/* <div className="bg-white/5  shadow-xl p-8 border border-white/10 hover:border-white/30 transition-all duration-300">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c5.5 0 10 1.58 10 3.5v11c0 1.92-4.5 3.5-10 3.5S2 19.42 2 17.5v-11C2 4.58 6.5 3 12 3m0 2c-4.56 0-8 1.14-8 1.5S7.44 8 12 8s8-1.14 8-1.5S16.56 5 12 5m0 11c1.2 0 2.35-.11 3.43-.3l-.12.04c-.23.78-.66 1.47-1.24 2.02-.41.4-.9.7-1.45.91-.24.09-.49.16-.74.21C11.28 18.95 10.64 19 10 19c-1.06 0-2.07-.23-2.98-.66-.54-.26-1.03-.6-1.45-1.01-.41-.4-.74-.87-.98-1.38-.24-.51-.37-1.06-.37-1.64 0-.58.13-1.13.37-1.64.24-.51.57-.98.98-1.38.42-.41.91-.75 1.45-1.01C7.93 10.23 8.94 10 10 10c.64 0 1.28.05 1.88.12-.34.32-.63.68-.86 1.08-.29.55-.48 1.16-.55 1.8-.16-.01-.31-.01-.47-.01-1.49 0-2.75.45-3.75 1.25-.5.4-.9.86-1.17 1.37-.27.51-.4 1.06-.4 1.64s.13 1.13.4 1.64c.27.51.67.97 1.17 1.37 1 .8 2.26 1.25 3.75 1.25.16 0 .31 0 .47-.01.07.64.26 1.25.55 1.8.23.4.52.76.86 1.08-.6.07-1.24.12-1.88.12-5.56 0-10-1.58-10-3.5V6.5c0-1.92 4.44-3.5 10-3.5 5.56 0 10 1.58 10 3.5v6.66c-.85-.39-1.8-.66-2.83-.76z"/><circle cx="18.5" cy="16.5" r="5.5" fill="currentColor"/><path fill="#fff" d="M18.5 14.5v4m0 0v-4m0 4h-2m2 0h2"/></svg>
                 Databases
               </h3>
@@ -763,10 +828,10 @@ export default function Home() {
                 ].map((skill) => (
                   <div 
                     key={skill.name}
-                    className={`bg-slate-50 dark:bg-slate-700/50 rounded-xl p-6 text-center hover:bg-${skill.color}-50 dark:hover:bg-${skill.color}-900/30 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-slate-200 dark:border-slate-600`}
+                    className="bg-white/10 rounded-full p-6 text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer border border-white/10"
                   >
                     <div className="flex justify-center mb-3 group-hover:scale-110 transition-transform">{skill.logo}</div>
-                    <span className="text-slate-800 dark:text-slate-200 font-semibold block">
+                    <span className="text-white font-semibold block">
                       {skill.name}
                     </span>
                   </div>
@@ -775,73 +840,37 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
-      <section id="contact" data-animate className="container mx-auto px-6 py-16 pb-24 scroll-mt-20">
-        <div className={`max-w-4xl mx-auto ${getAnimationClass('contact')}`}>
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4 text-center">
-            Get In Touch
-          </h2>
-          <p className="text-center text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
-            I'm always interested in new opportunities and collaborations. Let's connect!
-          </p>
-          <div className="bg-gradient-to-br from-white to-blue-50 dark:from-slate-800 dark:to-blue-900/20 rounded-2xl shadow-xl p-8 text-center border border-slate-200 dark:border-slate-700">
-            <p className="text-lg text-slate-700 dark:text-slate-300 mb-8">
-              Whether you have a project in mind, want to collaborate, or just want to say hi, I'd love to hear from you!
+      <section id="contact" data-animate className="container mx-auto px-6 lg:pr-80 py-12 pb-20 scroll-mt-20">
+        <div className={`max-w-4xl ${getAnimationClass('contact')}`}>
+          <div className="mb-8">
+            <p className="text-sm text-gray-400 mb-2">// GET IN TOUCH</p>
+            <h2 className="text-5xl font-bold text-white mb-4">
+              Reach Me
+            </h2>
+            <p className="text-gray-400">
+              If you want to contact me, just call me or email.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <a
-                href="mailto:vyash5407@gmail.com"
-                className="group inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-                Email Me
-              </a>
-              <a
-                href="https://www.linkedin.com/in/yash-verma-5a6937285"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/vyash0007"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
-            </div>
-            {/* Download Resume Button */}
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-700">
-              <a
-                href="/CV_YashV.pdf"
-                download="Yash_Verma_Resume.pdf"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                </svg>
-                Download Resume
-              </a>
+          </div>
+
+          {/* Email Display */}
+          <div className="mb-8">
+            <div className="inline-block px-6 py-3 border-2 border-dashed border-white/20 rounded-full">
+              <p className="text-white">
+                Email: <span className="text-gray-300">vyash5407@gmail.com</span>
+              </p>
             </div>
           </div>
+
+          {/* Contact Form */}
+          <ContactForm />
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-300 py-16 overflow-hidden">
+      <footer className="relative bg-black text-gray-300 py-16 overflow-hidden border-t border-white/10">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
@@ -851,23 +880,15 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             {/* Brand Section */}
             <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-blue-600 text-white font-bold text-xl px-4 py-2 rounded-lg">
-                  YV
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-white">Yash Verma</div>
-                  <p className="text-slate-400 text-sm">Web Developer | CSE Student</p>
-                </div>
+              <div className="mb-4">
+                <div className="text-2xl font-bold text-white mb-2">Yash Verma</div>
+                <p className="text-gray-400 text-sm">Web Developer | CSE Student</p>
               </div>
-              <p className="text-slate-400 leading-relaxed mb-4 max-w-md">
+              <p className="text-gray-400 leading-relaxed mb-4 max-w-md">
                 Passionate about creating beautiful and functional web experiences. 
                 Transforming ideas into reality through code.
               </p>
-              <div className="flex items-center gap-2 text-slate-500 text-sm">
-                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
+              <div className="flex items-center gap-2 text-gray-500 text-sm">
                 Building the future, one line of code at a time
               </div>
             </div>
@@ -878,11 +899,11 @@ export default function Home() {
                 Quick Links
               </h3>
               <div className="flex flex-col gap-3">
-                <a href="#about" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">About</a>
-                <a href="#education" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Education</a>
-                <a href="#projects" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Projects</a>
-                <a href="#skills" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Skills</a>
-                <a href="#contact" className="text-slate-400 hover:text-blue-400 transition-colors hover:translate-x-1 inline-block">Contact</a>
+                <a href="#about" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">About</a>
+                <a href="#education" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Education</a>
+                <a href="#projects" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Projects</a>
+                <a href="#skills" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Skills</a>
+                <a href="#contact" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block">Contact</a>
               </div>
             </div>
 
@@ -894,7 +915,7 @@ export default function Home() {
               <div className="flex flex-col gap-3 mb-6">
                 <a
                   href="mailto:vyash5407@gmail.com"
-                  className="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 group"
+                  className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
                 >
                   <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -907,29 +928,23 @@ export default function Home() {
                   href="https://github.com/vyash0007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative"
+                  className="w-11 h-11 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
                   title="GitHub"
                 >
-                  <div className="absolute inset-0 bg-blue-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition-opacity"></div>
-                  <div className="relative bg-slate-800 hover:bg-slate-700 p-3 rounded-lg transition-all group-hover:scale-110">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                  </div>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/yash-verma-5a6937285"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative"
+                  className="w-11 h-11 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
                   title="LinkedIn"
                 >
-                  <div className="absolute inset-0 bg-blue-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition-opacity"></div>
-                  <div className="relative bg-slate-800 hover:bg-blue-600 p-3 rounded-lg transition-all group-hover:scale-110">
-                    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                  </div>
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
                 </a>
               </div>
             </div>
@@ -943,30 +958,21 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2 text-slate-400 text-sm">
                 <span>Built with</span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 rounded-full">
-                  <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/>
                   </svg>
-                  Next.js
+                  <span className="text-white text-sm">Next.js</span>
                 </span>
-                <span>&</span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 rounded-full">
-                  <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
+                <span className="text-gray-500">&</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
                   </svg>
-                  Tailwind
+                  <span className="text-white text-sm">Tailwind</span>
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-slate-500 text-sm">
-                <span>Made with</span>
-                <svg className="w-4 h-4 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-                <span>&</span>
-                <svg className="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2M4 19h16v2H4z"/>
-                </svg>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -976,7 +982,7 @@ export default function Home() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-50 animate-slideUp"
+          className="fixed bottom-8 right-8 bg-white hover:bg-gray-200 text-black p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-110 z-50 animate-slideUp"
           aria-label="Scroll to top"
         >
           <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">

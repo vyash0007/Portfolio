@@ -1,24 +1,10 @@
 @import "tailwindcss";
 
-/* Enable class-based dark mode for Tailwind v4 */
-@custom-media --dark-mode (prefers-color-scheme: dark);
-
+/* Force black and white theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-.dark {
+  --background: #000000;
+  --foreground: #ffffff;
   color-scheme: dark;
-  --background: #0a0a0a;
-  --foreground: #ededed;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -52,6 +38,17 @@ html {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -101,6 +98,10 @@ html {
 
 .animate-slideDown {
   animation: slideDown 0.6s ease-out;
+}
+
+.animate-slideLeft {
+  animation: slideLeft 0.6s ease-out;
 }
 
 .animate-slideUp {
