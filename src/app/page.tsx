@@ -224,8 +224,8 @@ export default function Home() {
                 Contact Me
               </a>
               <a
-                href="/CV_YashV.pdf"
-                download="Yash_Verma_Resume.pdf"
+                href="/CV_Yash_Verma.pdf"
+                download="CV_Yash_Verma.pdf"
                 className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm sm:text-base"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
