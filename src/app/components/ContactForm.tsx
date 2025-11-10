@@ -16,7 +16,7 @@ export default function ContactForm() {
             placeholder="Name"
             required
             disabled={formStatus === 'sending'}
-            className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none transition-colors disabled:opacity-50"
+            className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
           />
         </div>
         <div>
@@ -28,7 +28,7 @@ export default function ContactForm() {
             placeholder="E-Mail"
             required
             disabled={formStatus === 'sending'}
-            className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none transition-colors disabled:opacity-50"
+            className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
           />
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function ContactForm() {
           placeholder="Subject"
           required
           disabled={formStatus === 'sending'}
-          className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none transition-colors disabled:opacity-50"
+          className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none focus:ring-0 transition-colors disabled:opacity-50"
         />
       </div>
 
@@ -55,7 +55,7 @@ export default function ContactForm() {
           rows={6}
           required
           disabled={formStatus === 'sending'}
-          className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none transition-colors resize-none disabled:opacity-50"
+          className="w-full bg-transparent border-b-2 border-dotted border-white/20 py-3 text-white placeholder-gray-500 focus:border-white/40 focus:outline-none focus:ring-0 transition-colors resize-none disabled:opacity-50"
         ></textarea>
       </div>
 
@@ -63,7 +63,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={formStatus === 'sending'}
-          className="bg-white hover:bg-gray-200 text-black font-semibold px-8 py-4 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="bg-white hover:bg-gray-200 text-black font-semibold px-8 py-4 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
           {formStatus === 'sending' ? (
             <span className="flex items-center gap-2">

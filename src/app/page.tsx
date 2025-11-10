@@ -213,20 +213,20 @@ export default function Home() {
             <div className="flex flex-wrap gap-3 pt-4">
               <a
                 href="#projects"
-                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
                 View Projects
               </a>
               <a
                 href="#contact"
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg border border-white/20 text-sm sm:text-base"
+                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 sm:px-8 py-3 rounded-md transition-all hover:scale-105 shadow-lg border border-white/20 text-sm sm:text-base"
               >
                 Contact Me
               </a>
               <a
                 href="/CV_Yash_Verma.pdf"
                 download="CV_Yash_Verma.pdf"
-                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-full transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm sm:text-base"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 py-3 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm sm:text-base"
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -278,21 +278,21 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-white mb-6">
             About Me
           </h2>
-          <div className="bg-white/5 shadow-xl p-6 space-y-4 hover:shadow-2xl transition-all duration-300 border border-white/10">
+          <div className="bg-white/5 shadow-xl p-6 space-y-4 hover:shadow-2xl transition-all duration-300 border border-white/10 rounded-md">
             <p className="text-lg text-gray-300 leading-relaxed">
               I'm a web developer with a passion for building modern, responsive websites and applications. 
               I love exploring new technologies and continuously improving my skills in web development.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
-              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
                 <div className="font-semibold text-white">Education</div>
                 <div className="text-sm text-gray-400">B.Tech CSE</div>
               </div>
-              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
                 <div className="font-semibold text-white">Projects</div>
                 <div className="text-sm text-gray-400">3+ Completed</div>
               </div>
-              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10">
+              <div className="text-center p-3 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
                 <div className="font-semibold text-white">Experience</div>
                 <div className="text-sm text-gray-400">Web Dev</div>
               </div>
@@ -460,7 +460,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Horizon Banking App */}
-            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
               <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://horizon-banking-app-alpha.vercel.app"
@@ -486,13 +486,13 @@ export default function Home() {
                   A modern banking application with secure authentication, real-time transactions, and comprehensive financial management features. Built with cutting-edge technologies for optimal performance.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Banking
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Finance
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Secure
                   </span>
                 </div>
@@ -501,19 +501,20 @@ export default function Home() {
                     href="https://horizon-banking-app-alpha.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
-                    Live Demo
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Live</span>
                   </a>
                   <a
                     href="https://github.com/vyash0007/Horizon-Banking-App.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -525,7 +526,7 @@ export default function Home() {
             </div>
 
             {/* Anonymous Feedback */}
-            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
               <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://ama-app-alpha.vercel.app"
@@ -551,13 +552,13 @@ export default function Home() {
                   An AMA (Ask Me Anything) application enabling anonymous feedback and questions in a safe, judgment-free environment. Perfect for honest communication and constructive feedback.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Social
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Anonymous
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Safe
                   </span>
                 </div>
@@ -566,19 +567,20 @@ export default function Home() {
                     href="https://ama-app-alpha.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
-                    Live Demo
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Live</span>
                   </a>
                   <a
                     href="https://github.com/vyash0007/AMA-APP.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -590,7 +592,7 @@ export default function Home() {
             </div>
 
             {/* Dry Clean Service App */}
-            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
               <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://newmoderndrycleaners.vercel.app"
@@ -616,13 +618,13 @@ export default function Home() {
                   A modern dry cleaning service platform offering seamless booking, order tracking, and customer management. Features real-time updates and an intuitive user experience for both customers and service providers.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Service
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Booking
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Tracking
                   </span>
                 </div>
@@ -631,19 +633,20 @@ export default function Home() {
                     href="https://newmoderndrycleaners.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
-                    Live Demo
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Live</span>
                   </a>
                   <a
                     href="https://github.com/vyash0007/DryCleanServiceApp.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
@@ -655,7 +658,7 @@ export default function Home() {
             </div>
 
             {/* GestureLang */}
-            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
               <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://gesture-lang.vercel.app"
@@ -681,13 +684,13 @@ export default function Home() {
                   An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     AI/ML
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Accessibility
                   </span>
-                  <span className="px-4 py-2 bg-white/10 text-white rounded-full text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Real-time
                   </span>
                 </div>
@@ -696,19 +699,20 @@ export default function Home() {
                     href="https://gesture-lang.vercel.app"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
                   >
                     <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                     </svg>
-                    Live Demo
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Live</span>
                   </a>
                   <a
                     href="https://github.com/vyash0007/GestureLang.git"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
                   >
                     <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
                       <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>

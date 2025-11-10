@@ -13,6 +13,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Remove all focus outlines from form inputs */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: inherit;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
