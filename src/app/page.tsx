@@ -192,12 +192,13 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
+      <section id="hero" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('hero')}`}>
           <div className="space-y-6 animate-fade-in">
             <div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white">
-                Hi, I'm <span className="text-white">Yash Verma</span>
+                <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">Hello, I'm</span><br />
+                <span className="text-white">Yash Verma</span>
               </h1>
             </div>
             <p className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-gray-300 font-medium flex items-center gap-2 md:gap-3">
@@ -273,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
+      <section id="about" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] ${getAnimationClass('about')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-6">
             About Me
@@ -302,7 +303,7 @@ export default function Home() {
       </section>
 
       {/* Education & Experience Section */}
-      <section id="education" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
+      <section id="education" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] mx-auto ${getAnimationClass('education')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-8">
             Education & Experience
@@ -450,7 +451,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
+      <section id="projects" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-full ${getAnimationClass('projects')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3">
             Featured Projects
@@ -498,7 +499,7 @@ export default function Home() {
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://horizon-banking-app-alpha.vercel.app"
+                    href="https://horizon.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -551,7 +552,7 @@ export default function Home() {
                 <p className="text-gray-400 leading-relaxed">
                   An AMA (Ask Me Anything) application enabling anonymous feedback and questions in a safe, judgment-free environment. Perfect for honest communication and constructive feedback.
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 pt-6">
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     Social
                   </span>
@@ -564,7 +565,7 @@ export default function Home() {
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://ama-app-alpha.vercel.app"
+                    href="https://anonymousfeedback.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -630,7 +631,7 @@ export default function Home() {
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://newmoderndrycleaners.vercel.app"
+                    href="https://newmodern.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -697,7 +698,7 @@ export default function Home() {
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://gesture-lang.vercel.app"
+                    href="https://gesturelang.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -848,7 +849,7 @@ export default function Home() {
       </section> */}
 
       {/* Contact Section */}
-      <section id="contact" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 pb-8 scroll-mt-16">
+      <section id="contact" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-96 py-12 md:py-16 lg:py-20 pb-16 md:pb-20 lg:pb-24 scroll-mt-16">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('contact')}`}>
           <div className="mb-8">
             <p className="text-sm text-gray-400 mb-2">// GET IN TOUCH</p>
