@@ -71,7 +71,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black">
       {/* Right Sidebar Navigation */}
-      <nav className="hidden lg:block fixed right-8 top-1/4 -translate-y-1/2 z-50 animate-slideLeft">
+      <nav className="hidden lg:block fixed right-8 top-1/4 -translate-y-1/2 z-[100] animate-slideLeft">
         <div className="bg-black rounded-3xl shadow-2xl overflow-hidden w-72 border border-white/10">
           <div className="p-4 space-y-1">
             <a 
@@ -139,7 +139,7 @@ export default function Home() {
       </nav>
 
       {/* Mobile Top Navigation */}
-      <nav className="lg:hidden fixed top-0 w-full bg-black/95 backdrop-blur-xl z-50 border-b border-white/10 animate-slideDown">
+      <nav className="lg:hidden fixed top-0 w-full bg-black/95 backdrop-blur-xl z-[100] border-b border-white/10 animate-slideDown">
         <div className="container mx-auto px-4 py-4">
           {/* Horizontal Tab Navigation */}
           <div className="flex justify-center items-center gap-2 max-w-md mx-auto">
@@ -163,7 +163,7 @@ export default function Home() {
                   : 'border-white/30 text-white hover:border-white/60'
               }`}
             >
-              <span className="text-sm font-bold">E</span>
+              <span className="text-sm font-bold">R</span>
             </a>
             <a 
               href="#projects" 
@@ -192,43 +192,43 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" data-animate className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 lg:pr-64 xl:pr-72 2xl:pr-80 pt-24 pb-60 md:pt-32 md:pb-72 lg:pb-80 lg:mt-0 mt-16">
+      <section id="hero" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('hero')}`}>
           <div className="space-y-6 animate-fade-in">
             <div>
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-bold text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white">
                 Hi, I'm <span className="text-white">Yash Verma</span>
               </h1>
             </div>
-            <p className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-gray-300 font-medium flex items-center gap-3 md:gap-4">
-              <svg className="w-7 h-7 md:w-9 md:h-9 xl:w-10 xl:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl text-gray-300 font-medium flex items-center gap-2 md:gap-3">
+              <svg className="w-7 h-7 md:w-8 md:h-8 xl:w-10 xl:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
               Web Developer
             </p>
-            <p className="text-lg md:text-xl xl:text-xl text-gray-400 max-w-2xl xl:max-w-3xl leading-relaxed">
+            <p className="text-base md:text-lg xl:text-xl text-gray-400 max-w-2xl xl:max-w-3xl leading-relaxed">
               Passionate about creating beautiful and functional web experiences. 
               Currently pursuing Bachelor's in Technology in Computer Science Engineering.
             </p>
-            <div className="flex flex-wrap gap-4 md:gap-4 pt-4">
+            <div className="flex flex-wrap gap-3 md:gap-4 pt-4">
               <a
                 href="#projects"
-                className="bg-white hover:bg-gray-200 text-black font-semibold px-7 sm:px-9 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl text-base sm:text-lg xl:text-lg"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base xl:text-lg"
               >
                 View Projects
               </a>
               <a
                 href="#contact"
-                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-7 sm:px-9 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg border border-white/20 text-base sm:text-lg xl:text-lg"
+                className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 sm:px-8 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg border border-white/20 text-sm sm:text-base xl:text-lg"
               >
                 Contact Me
               </a>
               <a
                 href="/CV_Yash_Verma.pdf"
                 download="CV_Yash_Verma.pdf"
-                className="bg-white hover:bg-gray-200 text-black font-semibold px-7 sm:px-9 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 md:gap-3 text-base sm:text-lg xl:text-lg"
+                className="bg-white hover:bg-gray-200 text-black font-semibold px-6 sm:px-8 xl:px-10 py-3 xl:py-4 rounded-md transition-all hover:scale-105 shadow-lg hover:shadow-xl inline-flex items-center gap-2 text-sm sm:text-base xl:text-lg"
               >
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 xl:w-6 xl:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 xl:w-6 xl:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
                 My Resume
@@ -273,28 +273,28 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" data-animate className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 lg:pr-64 xl:pr-72 2xl:pr-80 py-12 scroll-mt-20">
+      <section id="about" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] ${getAnimationClass('about')}`}>
-          <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-6">
             About Me
           </h2>
-          <div className="bg-white/5 shadow-xl p-7 md:p-8 space-y-4 hover:shadow-2xl transition-all duration-300 border border-white/10 rounded-md">
+          <div className="bg-white/5 shadow-xl p-6 md:p-8 space-y-4 hover:shadow-2xl transition-all duration-300 border border-white/10 rounded-md">
             <p className="text-base md:text-lg xl:text-xl text-gray-300 leading-relaxed">
               I'm a web developer with a passion for building modern, responsive websites and applications. 
               I love exploring new technologies and continuously improving my skills in web development.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-4 pt-1">
-              <div className="text-center p-4 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
-                <div className="font-semibold text-white text-base md:text-lg xl:text-xl">Education</div>
-                <div className="text-sm md:text-base xl:text-lg text-gray-400">B.Tech CSE</div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 pt-1">
+              <div className="text-center p-3 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
+                <div className="font-semibold text-white text-base md:text-lg">Education</div>
+                <div className="text-sm md:text-base text-gray-400">B.Tech CSE</div>
               </div>
-              <div className="text-center p-4 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
-                <div className="font-semibold text-white text-base md:text-lg xl:text-xl">Projects</div>
-                <div className="text-sm md:text-base xl:text-lg text-gray-400">3+ Completed</div>
+              <div className="text-center p-3 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
+                <div className="font-semibold text-white text-base md:text-lg">Projects</div>
+                <div className="text-sm md:text-base text-gray-400">3+ Completed</div>
               </div>
-              <div className="text-center p-4 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
-                <div className="font-semibold text-white text-base md:text-lg xl:text-xl">Experience</div>
-                <div className="text-sm md:text-base xl:text-lg text-gray-400">Web Dev</div>
+              <div className="text-center p-3 md:p-4 bg-white/5 hover:scale-105 transition-transform border border-white/10 rounded-md">
+                <div className="font-semibold text-white text-base md:text-lg">Experience</div>
+                <div className="text-sm md:text-base text-gray-400">Web Dev</div>
               </div>
             </div>
           </div>
@@ -302,9 +302,9 @@ export default function Home() {
       </section>
 
       {/* Education & Experience Section */}
-      <section id="education" data-animate className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 lg:pr-64 xl:pr-72 2xl:pr-80 py-12 scroll-mt-20">
+      <section id="education" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] mx-auto ${getAnimationClass('education')}`}>
-          <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-white mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-8">
             Education & Experience
           </h2>
           
@@ -450,18 +450,18 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" data-animate className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 lg:pr-64 xl:pr-72 2xl:pr-80 py-12 scroll-mt-20">
-        <div className={`max-w-7xl xl:max-w-[90rem] mx-auto ${getAnimationClass('projects')}`}>
-          <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-white mb-3">
+      <section id="projects" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 scroll-mt-16">
+        <div className={`max-w-full ${getAnimationClass('projects')}`}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3">
             Featured Projects
           </h2>
           <p className="text-gray-400 mb-8 max-w-2xl text-base md:text-lg xl:text-xl">
             Explore my live projects - hover to interact, click to visit the full experience.
           </p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 xl:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xl:gap-6">
             {/* Horizon Banking App */}
-            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
-              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md flex flex-col">
+              <div className="h-64 md:h-72 lg:h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://horizon-banking-app-alpha.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -526,8 +526,8 @@ export default function Home() {
             </div>
 
             {/* Anonymous Feedback */}
-            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
-              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md flex flex-col">
+              <div className="h-64 md:h-72 lg:h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://ama-app-alpha.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -592,8 +592,8 @@ export default function Home() {
             </div>
 
             {/* Dry Clean Service App */}
-            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
-              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md flex flex-col">
+              <div className="h-64 md:h-72 lg:h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://newmoderndrycleaners.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -658,8 +658,8 @@ export default function Home() {
             </div>
 
             {/* GestureLang */}
-            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md">
-              <div className="h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+            <div className="group bg-white/5  shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 hover:-translate-y-2 rounded-md flex flex-col">
+              <div className="h-64 md:h-72 lg:h-80 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
                   src="https://gesture-lang.vercel.app"
                   className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -683,6 +683,7 @@ export default function Home() {
                 <p className="text-gray-400 leading-relaxed">
                   An innovative AI-powered gesture recognition system that translates sign language in real-time. Breaking communication barriers and promoting accessibility through cutting-edge machine learning technology.
                 </p>
+                <br />
                 <div className="flex flex-wrap gap-2">
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
                     AI/ML
@@ -847,7 +848,7 @@ export default function Home() {
       </section> */}
 
       {/* Contact Section */}
-      <section id="contact" data-animate className="container mx-auto px-6 sm:px-8 md:px-10 lg:px-12 xl:px-16 lg:pr-64 xl:pr-72 2xl:pr-80 py-12 pb-20 scroll-mt-20">
+      <section id="contact" data-animate className="container mr-auto pl-6 pr-2 sm:pl-8 sm:pr-4 md:pl-10 md:pr-6 lg:pl-12 lg:pr-64 xl:pl-16 xl:pr-72 2xl:pr-80 py-4 pb-8 scroll-mt-16">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('contact')}`}>
           <div className="mb-8">
             <p className="text-sm text-gray-400 mb-2">// GET IN TOUCH</p>
@@ -880,62 +881,62 @@ export default function Home() {
           <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
         </div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-12 xl:pl-16 xl:pr-16 2xl:pl-20 2xl:pr-20 relative z-10">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             {/* Brand Section */}
             <div className="md:col-span-2">
               <div className="mb-4">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-3">Yash Verma</div>
-                <p className="text-gray-400 text-base md:text-lg">Web Developer | CSE Student</p>
+                <div className="text-2xl md:text-3xl font-bold text-white mb-2">Yash Verma</div>
+                <p className="text-gray-400 text-sm md:text-base">Web Developer | CSE Student</p>
               </div>
-              <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-6 max-w-md">
+              <p className="text-gray-400 leading-relaxed mb-4 max-w-md text-sm md:text-base">
                 Passionate about creating beautiful and functional web experiences. 
                 Transforming ideas into reality through code.
               </p>
-              <div className="flex items-center gap-2 text-gray-500 text-sm md:text-base">
+              <div className="flex items-center gap-2 text-gray-500 text-xs md:text-sm">
                 Building the future, one line of code at a time
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-white font-bold text-xl md:text-2xl mb-5">
+              <h3 className="text-white font-bold text-lg md:text-xl mb-4">
                 Quick Links
               </h3>
-              <div className="flex flex-col gap-4">
-                <a href="#about" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-base md:text-lg">About</a>
-                <a href="#education" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-base md:text-lg">Education</a>
-                <a href="#projects" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-base md:text-lg">Projects</a>
-                <a href="#skills" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-base md:text-lg">Skills</a>
-                <a href="#contact" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-base md:text-lg">Contact</a>
+              <div className="flex flex-col gap-3">
+                <a href="#about" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-sm md:text-base">About</a>
+                <a href="#education" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-sm md:text-base">Education</a>
+                <a href="#projects" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-sm md:text-base">Projects</a>
+                <a href="#skills" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-sm md:text-base">Skills</a>
+                <a href="#contact" className="text-gray-400 hover:text-white transition-colors hover:translate-x-1 inline-block text-sm md:text-base">Contact</a>
               </div>
             </div>
 
             {/* Connect Section */}
             <div>
-              <h3 className="text-white font-bold text-xl md:text-2xl mb-5">
+              <h3 className="text-white font-bold text-lg md:text-xl mb-4">
                 Connect
               </h3>
-              <div className="flex flex-col gap-4 mb-6">
+              <div className="flex flex-col gap-3 mb-6">
                 <a
                   href="mailto:vyash5407@gmail.com"
-                  className="text-gray-400 hover:text-white transition-colors flex items-center gap-3 group"
+                  className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
                 >
-                  <svg className="w-6 h-6 md:w-7 md:h-7 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
                   <span className="text-sm md:text-base">vyash5407@gmail.com</span>
                 </a>
               </div>
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <a
                   href="https://github.com/vyash0007"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
+                  className="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
                   title="GitHub"
                 >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
                 </a>
@@ -943,10 +944,10 @@ export default function Home() {
                   href="https://www.linkedin.com/in/yash-verma-5a6937285"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
+                  className="w-11 h-11 md:w-12 md:h-12 flex items-center justify-center border-2 border-white/20 rounded-full text-white hover:bg-white hover:text-black hover:border-white transition-all hover:scale-110"
                   title="LinkedIn"
                 >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                   </svg>
                 </a>
@@ -960,17 +961,17 @@ export default function Home() {
               <div className="text-slate-400 text-sm md:text-base">
                 &copy; 2025 Yash Verma. All rights reserved.
               </div>
-              <div className="flex items-center gap-3 text-slate-400 text-sm md:text-base">
+              <div className="flex items-center gap-2 text-slate-400 text-sm md:text-base">
                 <span>Built with</span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.438.438 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.879.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.859-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.573 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/>
                   </svg>
                   <span className="text-white text-sm md:text-base">Next.js</span>
                 </span>
-                <span className="text-gray-500 text-lg">&</span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
-                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <span className="text-gray-500">&</span>
+                <span className="inline-flex items-center gap-1 px-3 py-1 bg-white/5 border border-white/20 rounded-full hover:bg-white/10 transition-all">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/>
                   </svg>
                   <span className="text-white text-sm md:text-base">Tailwind</span>
