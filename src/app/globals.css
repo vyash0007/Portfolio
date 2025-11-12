@@ -2,7 +2,7 @@
 
 /* Force black and white theme */
 :root {
-  --background: #000000;
+  --background: #191A1A;
   --foreground: #ffffff;
   color-scheme: dark;
 }
@@ -11,6 +11,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /* Dot pattern background */
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: dotMove 10s linear infinite;
 }
 
 /* Remove all focus outlines from form inputs */
@@ -98,6 +102,15 @@ html {
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes dotMove {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 30px 30px;
   }
 }
 
