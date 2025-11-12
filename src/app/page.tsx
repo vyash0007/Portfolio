@@ -199,7 +199,7 @@ export default function Home() {
       {/* Hero Section */}
       <section id="hero" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('hero')}`}>
-          <div className="space-y-6 animate-fade-in bg-white/5 backdrop-blur-sm p-8 md:p-10 lg:p-12 rounded-2xl border border-white/10 shadow-2xl" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
+          <div className="space-y-6 animate-fade-in">
             <div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white">
                 <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">Hello, I'm</span><br />
@@ -314,7 +314,6 @@ export default function Home() {
             Education & Experience
           </h2>
           
-          <div className="bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-10 rounded-2xl border border-white/10 shadow-2xl" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
           {/* Two Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:gap-10 gap-8">
             {/* Education Column */}
@@ -454,7 +453,6 @@ export default function Home() {
             </div>
           </div>
           </div>
-        </div>
       </section>
 
       {/* Projects Section */}
@@ -687,7 +685,6 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-96 py-12 md:py-16 lg:py-20 pb-16 md:pb-20 lg:pb-24 scroll-mt-16">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('contact')}`}>
-          <div className="bg-white/5 backdrop-blur-sm p-6 md:p-8 lg:p-10 rounded-2xl border border-white/10 shadow-2xl" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
           <div className="mb-8">
             <p className="text-sm text-gray-400 mb-2">// GET IN TOUCH</p>
             <h2 className="text-5xl font-bold text-white mb-4">
@@ -709,7 +706,6 @@ export default function Home() {
 
           {/* Contact Form */}
           <ContactForm />
-          </div>
         </div>
       </section>
 
