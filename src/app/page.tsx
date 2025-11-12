@@ -197,7 +197,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
+      <section id="hero" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-[28rem] pt-16 pb-32 md:pt-20 md:pb-48 lg:pb-64 lg:mt-0 mt-8">
         <div className={`max-w-4xl xl:max-w-5xl ${getAnimationClass('hero')}`}>
           <div className="space-y-6 animate-fade-in">
             <div>
@@ -279,7 +279,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
+      <section id="about" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-[28rem] py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] ${getAnimationClass('about')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-6">
             About Me
@@ -308,14 +308,14 @@ export default function Home() {
       </section>
 
       {/* Education & Experience Section */}
-      <section id="education" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
+      <section id="education" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-[28rem] py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-7xl xl:max-w-[90rem] mx-auto ${getAnimationClass('education')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-white mb-8">
             Education & Experience
           </h2>
-          
+
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:gap-10 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-10 gap-8">
             {/* Education Column */}
             <div>
               <h3 className="text-xl md:text-2xl xl:text-3xl font-bold text-white mb-6 pb-3 border-b-2 border-white/20">
@@ -456,7 +456,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-80 xl:pl-16 xl:pr-80 2xl:pl-20 2xl:pr-80 py-12 md:py-16 lg:py-20 scroll-mt-16">
+      <section id="projects" data-animate className="container mr-auto pl-6 pr-6 sm:pl-8 sm:pr-8 md:pl-10 md:pr-10 lg:pl-12 lg:pr-96 xl:pl-16 xl:pr-96 2xl:pl-20 2xl:pr-[28rem] py-12 md:py-16 lg:py-20 scroll-mt-16">
         <div className={`max-w-full ${getAnimationClass('projects')}`}>
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3">
             Featured Projects
@@ -464,11 +464,11 @@ export default function Home() {
           <p className="text-gray-400 mb-8 max-w-2xl text-base md:text-lg xl:text-xl">
             Explore my live projects - hover to interact, click to visit the full experience.
           </p>
-          
+
           <div className="space-y-8">
             {/* Horizon Banking App */}
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
                 <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                   <iframe
@@ -539,7 +539,7 @@ export default function Home() {
 
             {/* Anonymous Feedback */}
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
                 <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                   <iframe
@@ -610,7 +610,7 @@ export default function Home() {
 
             {/* Dry Clean Service App */}
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
                 <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                 <iframe
