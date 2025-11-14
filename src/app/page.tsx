@@ -466,50 +466,48 @@ export default function Home() {
           </p>
           
           <div className="space-y-8">
-            {/* Horizon Banking App */}
-            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
+            {/* Hotel Booking */}
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: '#191A1A' }}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
-                <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
-                  <iframe
-                    src="https://horizon-banking-app-alpha.vercel.app"
-                    className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
-                    style={{ width: '285%', height: '285%' }}
-                    title="Horizon Banking App Preview"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                  <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
-                    <span className="text-sm font-semibold text-white flex items-center gap-2">
-                      <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"/>
-                      </svg>
-                      LIVE
-                    </span>
-                  </div>
+                <div className="h-72 md:h-80 lg:h-[420px] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://hotel.yashverma.site"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="Hotel Booking Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
                 </div>
-                
-                {/* Right: Description */}
-                <div className="p-6 flex flex-col justify-center space-y-4">
+              </div>
+              <div className="p-6 flex flex-col justify-center space-y-4">
                 <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
-                  Horizon Banking App
+                  Haven
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  A modern banking application with secure authentication, real-time transactions, and comprehensive financial management features. Built with cutting-edge technologies for optimal performance.
+                  A comprehensive hotel booking platform with advanced search filters, real-time availability, and secure payment integration. Features an intuitive interface for seamless room reservations and booking management.
                 </p>
                 <div className="flex flex-wrap gap-2">
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Banking
+                    Hospitality
                   </span>
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Finance
+                    Booking
                   </span>
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Secure
+                    Reservations
                   </span>
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://horizon.yashverma.site"
+                    href="https://hotel.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -522,7 +520,7 @@ export default function Home() {
                     <span className="sm:hidden">Live</span>
                   </a>
                   <a
-                    href="https://github.com/vyash0007/Horizon-Banking-App.git"
+                    href="https://github.com/vyash0007/Hotel-Booking.git"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
@@ -541,7 +539,7 @@ export default function Home() {
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
-                <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+                <div className="h-72 md:h-80 lg:h-[420px] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
                   <iframe
                     src="https://ama-app-alpha.vercel.app"
                     className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
@@ -608,48 +606,52 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Dry Clean Service App */}
+            {/* Horizon Banking App */}
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: 'rgba(25, 26, 26, 0.95)' }}>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Left: Live Preview */}
-                <div className="h-64 md:h-80 lg:h-96 bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
-                <iframe
-                  src="https://newmoderndrycleaners.vercel.app"
-                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
-                  style={{ width: '285%', height: '285%' }}
-                  title="Dry Clean Service App Preview"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
-                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
-                  <span className="text-sm font-semibold text-white flex items-center gap-2">
-                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
-                      <circle cx="12" cy="12" r="10"/>
-                    </svg>
-                    LIVE
-                  </span>
+                <div className="h-72 md:h-80 lg:h-[420px] relative overflow-hidden cursor-pointer"
+                  style={{ backgroundColor: '#191A1A' }}>
+                  <iframe
+                    src="https://horizon-banking-app-alpha.vercel.app"
+                    title="Horizon Banking App Preview"
+                    className="absolute top-0 left-0 w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                    style={{ width: '285%', height: '285%' }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                  <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                    <span className="text-sm font-semibold text-white flex items-center gap-2">
+                      <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                      </svg>
+                      LIVE
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 flex flex-col justify-center space-y-4">
+
+                {/* Right: Description */}
+                <div className="p-6 flex flex-col justify-center space-y-4">
                 <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
-                  Dry Clean Service App
+                  Horizon Banking App
                 </h3>
                 <p className="text-gray-400 leading-relaxed">
-                  A modern dry cleaning service platform offering seamless booking, order tracking, and customer management. Features real-time updates and an intuitive user experience for both customers and service providers.
+                  A modern banking application with secure authentication, real-time transactions, and comprehensive financial management features. Built with cutting-edge technologies for optimal performance.
                 </p>
+                
                 <div className="flex flex-wrap gap-2">
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Service
+                    Banking
                   </span>
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Booking
+                    Finance
                   </span>
                   <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
-                    Tracking
+                    Secure
                   </span>
                 </div>
                 <div className="flex gap-3 pt-1">
                   <a
-                    href="https://newmodern.yashverma.site"
+                    href="https://horizon.yashverma.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
@@ -662,7 +664,7 @@ export default function Home() {
                     <span className="sm:hidden">Live</span>
                   </a>
                   <a
-                    href="https://github.com/vyash0007/DryCleanServiceApp.git"
+                    href="https://github.com/vyash0007/Horizon-Banking-App.git"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
