@@ -466,6 +466,75 @@ export default function Home() {
           </p>
 
           <div className="space-y-8">
+            {/* DRAPELY.ai */}
+            <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: '#191A1A' }}>
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                {/* Left: Live Preview */}
+                <div className="h-72 md:h-80 lg:h-[420px] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden cursor-pointer">
+                <iframe
+                  src="https://drapely-ai.yashverma.site"
+                  className="w-full h-full scale-[0.35] origin-top-left transition-all duration-500 group-hover:scale-[0.38]"
+                  style={{ width: '285%', height: '285%' }}
+                  title="DRAPELY.ai Preview"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none transition-opacity duration-500 group-hover:opacity-40"></div>
+                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                  <span className="text-sm font-semibold text-white flex items-center gap-2">
+                    <svg className="w-3 h-3 fill-white animate-pulse" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10"/>
+                    </svg>
+                    LIVE
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 flex flex-col justify-center space-y-4">
+                <h3 className="text-3xl font-bold text-white group-hover:text-gray-300 transition-all duration-300">
+                  DRAPELY.ai
+                </h3>
+                <p className="text-gray-400 leading-relaxed">
+                  An AI-powered virtual try-on platform that allows users to visualize clothing on themselves using advanced machine learning. Experience seamless fashion exploration with realistic garment fitting technology.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                    AI
+                  </span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                    Fashion
+                  </span>
+                  <span className="px-4 py-2 bg-white/10 text-white rounded-md text-sm font-semibold transition-transform hover:scale-110 border border-white/20">
+                    Virtual Try-On
+                  </span>
+                </div>
+                <div className="flex gap-3 pt-1">
+                  <a
+                    href="https://drapely-ai.yashverma.site"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-white hover:bg-gray-200 text-black font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <svg className="w-5 h-5 fill-black" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    <span className="hidden sm:inline">Live Demo</span>
+                    <span className="sm:hidden">Live</span>
+                  </a>
+                  <a
+                    href="https://github.com/vyash0007/DRAPELY.ai.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 border border-white/20"
+                  >
+                    <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                    GitHub
+                  </a>
+                </div>
+                </div>
+              </div>
+            </div>
+
             {/* Hotel Booking */}
             <div className="group bg-white/5 shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 border-2 border-white/10 hover:border-white/30 rounded-md" style={{ backgroundColor: '#191A1A' }}>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
